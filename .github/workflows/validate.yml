@@ -25,11 +25,11 @@ jobs:
       - name: Install the validator
         run: python -m pip install -r requirements-validation.txt
       - name: Run negative tests
-        run: python -m unittest discover -s scripts -p 'test_*.py' -v
+        run: python -m unittest discover -s .agents/scripts -p 'test_*.py' -v
       - name: Validate the plan
-        run: python scripts/validate_plan.py
+        run: python .agents/scripts/validate_plan.py
       - name: Validate records and references
-        run: python scripts/validate_records.py
+        run: python .agents/scripts/validate_records.py
 
   validate-language:
     runs-on: ubuntu-24.04
@@ -47,4 +47,4 @@ jobs:
       - name: Install the validator
         run: python -m pip install -r requirements-validation.txt
       - name: Check project language rules
-        run: python scripts/validate_language.py
+        run: python .agents/scripts/validate_language.py

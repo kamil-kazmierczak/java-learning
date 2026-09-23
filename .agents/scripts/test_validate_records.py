@@ -51,7 +51,7 @@ class RecordValidationTests(unittest.TestCase):
         routes.update({"topic": "topics/counter-state.json", "lesson": "lessons/lesson-0001.json",
                        "exercise": "exercises/exercise-counter/exercise.json"})
         for record_type, path in routes.items():
-            record = self.read(f"examples/{record_type}.json")
+            record = self.read(f".agents/examples/{record_type}.json")
             record["record_kind"] = "live"
             self.write(path, record)
         entry = self.root / "AGENTS.md"
@@ -106,7 +106,7 @@ class RecordValidationTests(unittest.TestCase):
 
     def test_each_record_type_rejects_missing_extra_and_changed_version(self):
         for record_type in sorted(RECORD_TYPES):
-            path = f"examples/{record_type}.json"
+            path = f".agents/examples/{record_type}.json"
             original = self.read(path)
             for mutation in ("missing", "extra", "version"):
                 with self.subTest(record_type=record_type, mutation=mutation):
@@ -122,19 +122,19 @@ class RecordValidationTests(unittest.TestCase):
                     self.write(path, original)
 
     def test_nested_fields_are_closed(self):
-        lesson = self.read("examples/lesson.json")
+        lesson = self.read(".agents/examples/lesson.json")
         lesson["observations"][0]["invented_score"] = 100
-        self.write("examples/lesson.json", lesson)
+        self.write(".agents/examples/lesson.json", lesson)
         self.assert_rule("JSON_SCHEMA")
 
     def test_reject_invalid_dates(self):
-        lesson = self.read("examples/lesson.json")
+        lesson = self.read(".agents/examples/lesson.json")
         lesson["date"] = "2026-02-30"
-        self.write("examples/lesson.json", lesson)
+        self.write(".agents/examples/lesson.json", lesson)
         self.assert_rule("JSON_SCHEMA")
 
     def test_reject_duplicate_keys_and_non_finite_numbers(self):
-        path = self.root / "examples/profile.json"
+        path = self.root / ".agents/examples/profile.json"
         for content in ('{"record_type":"profile","record_type":"topic"}', '{"value":NaN}', '{"value":1e999}'):
             with self.subTest(content=content):
                 path.write_text(content)
@@ -172,7 +172,7 @@ class RecordValidationTests(unittest.TestCase):
         self.assertEqual(self.errors(), [])
 
     def test_example_cannot_be_copied_into_live_state(self):
-        self.write("profile.json", self.read("examples/profile.json"))
+        self.write("profile.json", self.read(".agents/examples/profile.json"))
         self.assert_rule("RECORD_KIND")
 
     def test_file_name_must_match_id(self):
@@ -183,37 +183,37 @@ class RecordValidationTests(unittest.TestCase):
         self.assert_rule("FILE_ID")
 
     def test_duplicate_task_id(self):
-        lesson = self.read("examples/lesson.json")
+        lesson = self.read(".agents/examples/lesson.json")
         lesson["tasks"].append(copy.deepcopy(lesson["tasks"][0]))
-        self.write("examples/lesson.json", lesson)
+        self.write(".agents/examples/lesson.json", lesson)
         self.assert_rule("DUPLICATE_ID")
 
     def test_missing_topic(self):
-        (self.root / "examples/topic.json").unlink()
+        (self.root / ".agents/examples/topic.json").unlink()
         self.assert_rule("MISSING_EXAMPLE")
 
     def test_unknown_exercise(self):
-        lesson = self.read("examples/lesson.json")
+        lesson = self.read(".agents/examples/lesson.json")
         lesson["tasks"][0]["exercise_id"] = "exercise-missing"
-        self.write("examples/lesson.json", lesson)
+        self.write(".agents/examples/lesson.json", lesson)
         self.assert_rule("UNKNOWN_EXERCISE")
 
     def test_unknown_evidence(self):
-        topic = self.read("examples/topic.json")
+        topic = self.read(".agents/examples/topic.json")
         topic["evidence_refs"][0]["evidence_id"] = "evidence-99"
-        self.write("examples/topic.json", topic)
+        self.write(".agents/examples/topic.json", topic)
         self.assert_rule("UNKNOWN_EVIDENCE")
 
     def test_prerequisite_cycle(self):
-        curriculum = self.read("examples/curriculum.json")
+        curriculum = self.read(".agents/examples/curriculum.json")
         curriculum["topics"][0]["prerequisite_ids"] = ["counter-state"]
-        self.write("examples/curriculum.json", curriculum)
+        self.write(".agents/examples/curriculum.json", curriculum)
         self.assert_rule("PREREQUISITE_CYCLE")
 
     def test_hint_result_does_not_prove_independent_skill(self):
-        topic = self.read("examples/topic.json")
+        topic = self.read(".agents/examples/topic.json")
         topic["status"] = "applied_independently"
-        self.write("examples/topic.json", topic)
+        self.write(".agents/examples/topic.json", topic)
         self.assert_rule("INDEPENDENT_EVIDENCE")
 
     def test_independent_task_cannot_use_hint_resource(self):
@@ -269,21 +269,21 @@ class RecordValidationTests(unittest.TestCase):
         self.assert_rule("LESSON_INDEX")
 
     def test_unapproved_lesson(self):
-        lesson = self.read("examples/lesson.json")
+        lesson = self.read(".agents/examples/lesson.json")
         lesson["approval"]["status"] = "pending"
-        self.write("examples/lesson.json", lesson)
+        self.write(".agents/examples/lesson.json", lesson)
         self.assert_rule("JSON_SCHEMA")
 
     def test_executed_result_needs_output_and_source(self):
-        lesson = self.read("examples/lesson.json")
+        lesson = self.read(".agents/examples/lesson.json")
         lesson["tasks"][0]["execution"]["status"] = "passed"
-        self.write("examples/lesson.json", lesson)
+        self.write(".agents/examples/lesson.json", lesson)
         self.assert_rule("JSON_SCHEMA")
 
     def test_code_path_cannot_escape_the_exercise(self):
-        exercise = self.read("examples/exercise.json")
+        exercise = self.read(".agents/examples/exercise.json")
         exercise["code_paths"] = ["../secret.java"]
-        self.write("examples/exercise.json", exercise)
+        self.write(".agents/examples/exercise.json", exercise)
         self.assert_rule("JSON_SCHEMA")
 
     def test_live_references_cannot_use_examples(self):
@@ -294,9 +294,9 @@ class RecordValidationTests(unittest.TestCase):
         self.assert_rule("UNKNOWN_EVIDENCE")
 
     def test_language_automation_needs_a_tool(self):
-        policy = self.read("examples/language-policy.json")
+        policy = self.read(".agents/examples/language-policy.json")
         policy["coverage"][0]["mode"] = "automatic"
-        self.write("examples/language-policy.json", policy)
+        self.write(".agents/examples/language-policy.json", policy)
         self.assert_rule("MISSING_LANGUAGE_CHECKER")
 
 

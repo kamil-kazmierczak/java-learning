@@ -23,6 +23,7 @@ SINGLETONS = {
 }
 RECORD_TYPES = set(SINGLETONS.values()) | {"topic", "lesson", "exercise"}
 SCHEMA_NAMES = RECORD_TYPES | {"common", "system-plan"}
+EXAMPLES_DIR = ".agents/examples"
 # Schema IDs are stable identifiers, independent of their local directory.
 BASE = "https://github.com/kamil-kazmierczak/java-learning/schemas/"
 PATTERNS = (
@@ -35,7 +36,7 @@ PATTERNS = (
 def route(path):
     if path in SINGLETONS:
         return SINGLETONS[path], "live", None, None
-    match = re.fullmatch(r"examples/([a-z-]+)\.json", path)
+    match = re.fullmatch(re.escape(EXAMPLES_DIR) + r"/([a-z-]+)\.json", path)
     if match and match[1] in RECORD_TYPES:
         return match[1], "example", None, None
     for pattern, record_type, id_field in PATTERNS:
@@ -269,7 +270,7 @@ def validate_group(records, root, errors, kind):
     for exercise_id, (path, exercise) in exercises.items():
         check_topics(exercise["topic_ids"], path, "/topic_ids")
         unique_index(exercise["sources"], "id", path, "/sources", errors)
-        prefix = "examples/code/" if kind == "example" else f"exercises/{exercise_id}/"
+        prefix = f"{EXAMPLES_DIR}/code/" if kind == "example" else f"exercises/{exercise_id}/"
         for index, code_path in enumerate(exercise["code_paths"]):
             target = root / code_path
             if not code_path.startswith(prefix) or not target.is_file() or not target.resolve().is_relative_to(root.resolve()):
@@ -398,8 +399,8 @@ def validate_repository(root):
     if PLAN not in data:
         add(errors, "MISSING_PLAN", PLAN, "", "The plan is required.", "DATA")
     for record_type in sorted(RECORD_TYPES):
-        if f"examples/{record_type}.json" not in data:
-            add(errors, "MISSING_EXAMPLE", f"examples/{record_type}.json", "", record_type, "DATA")
+        if f"{EXAMPLES_DIR}/{record_type}.json" not in data:
+            add(errors, "MISSING_EXAMPLE", f"{EXAMPLES_DIR}/{record_type}.json", "", record_type, "DATA")
     for err in validate_entry_links(root):
         add(errors, err["rule_id"], err["file"], err["json_pointer"], err["message"])
     if not errors:

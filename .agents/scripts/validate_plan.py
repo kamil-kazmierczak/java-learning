@@ -9,7 +9,7 @@ from pathlib import Path
 
 from jsonschema import Draft202012Validator, FormatChecker
 
-ROOT = Path(__file__).resolve().parents[1]
+ROOT = Path(__file__).resolve().parents[2]
 PLAN = "planning/system-plan.json"
 SCHEMA_DIR = ".agents/schemas"
 SCHEMA = f"{SCHEMA_DIR}/system-plan.schema.json"

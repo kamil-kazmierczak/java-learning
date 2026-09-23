@@ -8,7 +8,7 @@
   "repository_language": "en",
   "chat_language": "pl",
   "review_language": "pl",
-  "checker": "scripts/validate_language.py 1.0.0; project style checks only",
+  "checker": ".agents/scripts/validate_language.py 1.0.0; project style checks only",
   "full_automated_compliance_claim": false,
   "exclusions": [
     "code",

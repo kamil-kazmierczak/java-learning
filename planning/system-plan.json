@@ -447,7 +447,7 @@
       "load_when": "When the project is configured."
     },
     {
-      "path": "examples/<record-type>.json",
+      "path": ".agents/examples/<record-type>.json",
       "schema": ".agents/schemas/<record-type>.schema.json",
       "purpose": "Valid example data, separate from learner evidence.",
       "load_when": "When the tutor creates a record of this type."

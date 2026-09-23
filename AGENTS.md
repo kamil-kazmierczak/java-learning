@@ -81,7 +81,7 @@ When checks fail, prepare a correction and report it. Do not declare the saved s
 ## Record contracts
 
 Use version `1.0.0` and `record_kind: live` for actual records.
-Files in `examples/` are fictional. Never use their results as learner evidence.
+Files in `.agents/examples/` are fictional. Never use their results as learner evidence.
 An ID must match its file name and remain stable after a title change.
 Read the schema in `.agents/schemas/` before creating or changing a record. Do not change a schema to bypass a failure.
 
@@ -109,10 +109,10 @@ Record code review separately from execution. A learner report is not an agent e
 Install `requirements-validation.txt`, then run these commands:
 
 ```sh
-python -m unittest discover -s scripts -p 'test_*.py' -v
-python scripts/validate_plan.py
-python scripts/validate_records.py
-python scripts/validate_language.py
+python -m unittest discover -s .agents/scripts -p 'test_*.py' -v
+python .agents/scripts/validate_plan.py
+python .agents/scripts/validate_records.py
+python .agents/scripts/validate_language.py
 ```
 
 GitHub Actions runs the checks after each push to `develop`.
