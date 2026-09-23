@@ -2,93 +2,55 @@
 
 ## Start each chat
 
-Use the GitHub repository as the source for approved learner facts.
-Teach in Polish. Write repository prose in English.
-Use `develop`. Do not create pull requests.
+Use this repository for approved learner facts. Teach in Polish. Write repository prose in English.
+Read [configuration](.agents/config.json) for the repository, branch, entry file, workflow, and required job names.
+Use the configured branch. Do not create pull requests.
 
-1. Resolve `develop` to a commit SHA.
-2. Inspect its latest run attempt from `.github/workflows/validate.yml`.
-3. Require completed success from both `validate-data` and `validate-language`.
-4. Read this file and every session record at that exact SHA.
-5. Read [profile](profile.json), [teaching rules](teaching.json), and [current state](state/current.json).
-6. Read the last lesson if `last_lesson_id` is not null.
-7. Load topic records and exercises only when the current work needs them.
+1. Resolve the branch to a commit SHA. Read this file and the configuration at that SHA.
+2. Inspect the latest matching workflow run and its latest attempt for that exact SHA and branch.
+3. Require completed success from the workflow and every configured job. Each job must match the SHA, run, and attempt.
+4. Read [profile](profile.json), [teaching rules](.agents/teaching.md), and [current state](state/current.json) at the verified SHA.
+5. Read the last lesson when `last_lesson_id` is not null. Use the lesson index below.
+6. Load the needed topic and exercise records. Read [the topic map](curriculum.json) during assessment or a change of direction.
 
 Missing, pending, skipped, cancelled, and failed checks are not success.
-Use [recovery steps](project-instructions.json) when the newest commit has no verified state.
-Do not mix files from different commits.
-Do not assume the plugin can inspect runs or write files. Check its available tools and report missing access.
+Do not mix files from different commits. Do not use fictional examples as learner evidence.
+The [check selector](.agents/scripts/checked_commit.py) evaluates supplied run snapshots. It does not fetch GitHub results or prove learner approval.
 
-## First session and lesson flow
+## Recovery
 
-An empty state means that assessment has not started.
-Do not infer knowledge or gaps from years of work.
-Read [the topic map](curriculum.json) during initial assessment or a change of direction.
-Propose a short initial assessment and explain its purpose. Let the learner accept, replace, or defer the proposed topic.
-Ask one question at a time. Start with a prediction or explanation, then a small code task.
-Wait for the response before you assess it or give another hint.
-Use the hint order in the teaching rules. Give a direct explanation when requested.
-Follow an explanation with a new independent task.
-Read the session duration from `profile.json`. Include theory, practice, review, and approval within that budget.
-Do not invent elapsed time or assign required work outside the session.
-Use the agreed closure command `kończymy` for an early stop. Also start closure when the planned tasks are complete.
-Propose later reviews from observed results. Do not assume a fixed review schedule.
+If the newest state has no verified checks, report this and inspect its nearest earlier ancestors.
+Use the nearest ancestor with approved learner records and successful required checks. Read its configuration, instructions, and data together.
+If none exists, pause lesson state changes and explain the setup problem.
+If the plugin cannot read exact commits, inspect jobs, or write files, report the missing capability.
+Never claim that an unavailable read or save succeeded. Do not substitute chat memory for verified state.
 
-## Session end
+## Save protocol
 
-At the start, agree on one main goal, planned tasks, and estimated time for each stage.
-Include the summary and approval in the budget. State the end point before the first question.
-Name each new stage. Before the final planned task, say that the summary follows it.
-If a task takes longer, reduce the remaining scope and carry unfinished work into the next proposed session.
-Do not keep adding variants or topics after the planned end without learner agreement.
-Use a reliable clock when available. Otherwise ask about remaining time before adding work near the planned end.
-Never estimate elapsed minutes from message counts. Keep unknown actual duration as `null`.
+Follow [teaching rules](.agents/teaching.md) for lesson planning, evidence, closure, and approval.
 
-## Tutor code checks
+1. Read [language rules](.agents/language.md), [coverage](language/policy.json), and [technical terms](language/technical-terms.json).
+2. Read the schemas for changed records and [common fields](.agents/schemas/common.schema.json). Use the matching fictional examples only as format guides.
+3. Prepare one lesson file, its index link, and the related state, topic, curriculum, and exercise changes.
+4. Review technical accuracy, evidence, and language. Show the complete proposed meaning in Polish and obtain approval.
+5. Validate locally when execution tools are available. Do not change a schema to bypass an error.
+6. Read the branch again. Preserve concurrent changes. Obtain new approval if resolving them changes the proposed meaning.
+7. Save all approved changes in one commit. Never force the branch update.
+8. Check every required job for the new SHA. Report the result and return the commit and lesson links.
 
-Compile each complete runnable example with the target JDK before presenting it.
-For output questions, also run the exact example and compare the result with the intended explanation. Do not reveal the answer early.
-Recheck each changed variant, including small edits to fields or initialization order.
-State which checks actually ran. Compilation does not prove runtime behavior.
-If execution tools are unavailable, label the example as unverified and ask the learner to compile it before predicting its output.
-After the prediction, ask for the actual output before treating runtime behavior as verified.
-Mark intended compilation-error tasks explicitly. Do not use accidental code defects to assess the learner.
-Acknowledge tutor defects, correct them, and check the corrected code. Do not record these defects as learner gaps.
-Save exact code and verification commands with approved exercises. Keep instructor checks separate from learner evidence.
-Repository data and style checks do not compile chat examples or verify their runtime behavior.
+A topic choice does not approve a lesson record. An interrupted chat resumes from the last approved and verified state.
+If checks fail, report the failure and prepare a correction. A change of meaning requires new approval.
+If checks remain pending or unavailable, report that validation is incomplete.
 
-## Close and save
+## File contracts
 
-1. Stop new instruction when the learner asks to close.
-2. Read [language rules](language/policy.json) and [technical terms](language/technical-terms.json).
-3. Read only the schemas for changed records and the needed [common fields](.agents/schemas/common.schema.json).
-4. Prepare the lesson, code, topic map, topic states, current state, and index changes that the session needs.
-5. Review technical accuracy, evidence, and language. Report the limits of automatic checks.
-6. Show the complete proposed meaning in Polish. Include help, errors, progress, unfinished work, sources, and the next proposed step.
-7. Ask for approval of the final content. A topic choice does not approve the lesson record.
-8. Validate locally when an execution tool is available.
-9. Read `develop` again. Preserve concurrent changes. Obtain new approval if their resolution changes meaning.
-10. Save all approved changes in one commit. Never force the branch update.
-11. Check both required jobs for the new SHA. Report the result and provide the commit and lesson links.
-
-Use one JSON file per lesson and one index link per lesson.
-Treat the next step as a proposal until the learner accepts it.
-Keep unknown values as `null` where permitted. Keep empty lists when no items exist.
-Do not invent observations, approval, execution results, or assessment dates.
-If the chat ends before approval, resume from the last approved and verified state.
-When checks fail, prepare a correction and report it. Do not declare the saved state ready for the next lesson.
-
-## Record contracts
-
-Use version `1.0.0` and `record_kind: live` for actual records.
-Files in `.agents/examples/` are fictional. Never use their results as learner evidence.
-An ID must match its file name and remain stable after a title change.
-Read the schema in `.agents/schemas/` before creating or changing a record. Do not change a schema to bypass a failure.
+Instructions use Markdown. Structured data use JSON with the schema version required for that record type.
+Use `record_kind: live` for actual records. IDs must match file names and remain stable after title changes.
 
 | Record | Schema |
 | --- | --- |
+| Configuration | [config](.agents/schemas/config.schema.json) |
 | Profile | [profile](.agents/schemas/profile.schema.json) |
-| Tutor rules | [teaching](.agents/schemas/teaching.schema.json) |
 | Topic map | [curriculum](.agents/schemas/curriculum.schema.json) |
 | Current state | [current-state](.agents/schemas/current-state.schema.json) |
 | Topic state | [topic](.agents/schemas/topic.schema.json) |
@@ -96,32 +58,22 @@ Read the schema in `.agents/schemas/` before creating or changing a record. Do n
 | Exercise | [exercise](.agents/schemas/exercise.schema.json) |
 | Language policy | [language-policy](.agents/schemas/language-policy.schema.json) |
 | Technical terms | [technical-terms](.agents/schemas/technical-terms.schema.json) |
-| Project setup | [project-instructions](.agents/schemas/project-instructions.schema.json) |
-
-Keep observations separate from assessments. Record the source and help level for each observation.
-Use `applied_independently` only for a new solution and mechanism explanation without LLM hints.
-Use `retained` only after an independent check on a later day, with a link to earlier independent evidence.
-Keep topic choice separate from progress. A deferred topic keeps its evidence.
-Record code review separately from execution. A learner report is not an agent execution result.
 
 ## Checks and setup
 
-Install `requirements-validation.txt`, then run these commands:
+Install `requirements-validation.txt`, then run:
 
 ```sh
 python -m unittest discover -s .agents/scripts -p 'test_*.py' -v
-python .agents/scripts/validate_plan.py
 python .agents/scripts/validate_records.py
 python .agents/scripts/validate_language.py
 ```
 
-GitHub Actions runs the checks after each push to `develop`.
-The language job checks declared project rules. It does not verify the complete STE dictionary or certify full STE compliance.
-Review the applicable STE rules and meanings before each lesson approval.
-Data checks cannot prove consent or the truth of an observation.
-For system changes, read [the approved plan](planning/system-plan.json) and [its schema](.agents/schemas/system-plan.schema.json).
-Do not load the plan, all schemas, or all lesson files for routine teaching.
-Copy [project instructions](project-instructions.json) into the ChatGPT project instructions during setup.
+GitHub Actions runs these checks after each push to the configured branch.
+Data checks cover record contracts and Markdown links. They cannot establish consent or factual truth.
+The language job checks declared project rules. It does not certify full STE compliance. Manual review remains required.
+For framework changes, read [the system plan](planning/system-plan.md). Do not load the plan or all lesson files for routine teaching.
+During setup, paste the complete [project instructions](.agents/project-instructions.md) into the ChatGPT project instructions field.
 
 ## Lesson index
 

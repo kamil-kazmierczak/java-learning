@@ -1,0 +1,56 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/kamil-kazmierczak/java-learning/schemas/config.schema.json",
+  "title": "Framework configuration",
+  "type": "object",
+  "properties": {
+    "schema_version": {
+      "const": "1.0.0"
+    },
+    "record_type": {
+      "const": "config"
+    },
+    "record_kind": {
+      "enum": [
+        "live",
+        "example"
+      ]
+    },
+    "repository_url": {
+      "type": "string",
+      "pattern": "^https://github\\.com/[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+$"
+    },
+    "branch": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._/-]*$"
+    },
+    "entry_file": {
+      "const": "AGENTS.md"
+    },
+    "workflow_path": {
+      "type": "string",
+      "pattern": "^\\.github/workflows/[A-Za-z0-9_-]+\\.ya?ml$"
+    },
+    "required_checks": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^[A-Za-z][A-Za-z0-9_-]*$"
+      },
+      "minItems": 1,
+      "uniqueItems": true
+    }
+  },
+  "required": [
+    "schema_version",
+    "record_type",
+    "record_kind",
+    "repository_url",
+    "branch",
+    "entry_file",
+    "workflow_path",
+    "required_checks"
+  ],
+  "additionalProperties": false
+}

@@ -7,7 +7,7 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from validate_plan import ROOT, load_json
+from validation_common import ROOT, load_json
 from validate_records import RECORD_TYPES, SINGLETONS, validate_repository
 
 
@@ -116,7 +116,7 @@ class RecordValidationTests(unittest.TestCase):
                     elif mutation == "extra":
                         changed["invented_field"] = "value"
                     else:
-                        changed["schema_version"] = "2.0.0"
+                        changed["schema_version"] = "999.0.0"
                     self.write(path, changed)
                     self.assert_rule("JSON_SCHEMA")
                     self.write(path, original)
@@ -296,6 +296,7 @@ class RecordValidationTests(unittest.TestCase):
     def test_language_automation_needs_a_tool(self):
         policy = self.read(".agents/examples/language-policy.json")
         policy["coverage"][0]["mode"] = "automatic"
+        policy["checker"] = None
         self.write(".agents/examples/language-policy.json", policy)
         self.assert_rule("MISSING_LANGUAGE_CHECKER")
 

@@ -2,13 +2,14 @@
 import copy
 import unittest
 
-from checked_commit import WORKFLOW, checked_commit, nearest_checked_ancestor
+from checked_commit import checked_commit, nearest_checked_ancestor
+from framework_config import load_config
 
 
 class CheckedCommitTests(unittest.TestCase):
     def setUp(self):
         self.run = {"id": 10, "run_number": 7, "run_attempt": 1,
-                    "head_sha": "a" * 40, "head_branch": "develop", "path": WORKFLOW,
+                    "head_sha": "a" * 40, "head_branch": "develop", "path": load_config()["workflow_path"],
                     "event": "push", "status": "completed", "conclusion": "success"}
         self.jobs = {(10, 1): [dict(name=name, head_sha="a" * 40, run_id=10,
                                    run_attempt=1, status="completed", conclusion="success")

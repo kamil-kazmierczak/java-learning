@@ -10,19 +10,19 @@ from pathlib import Path
 from jsonschema import Draft202012Validator, FormatChecker
 from referencing import Registry, Resource
 
-from validate_plan import PLAN, SCHEMA, SCHEMA_DIR, ROOT, load_json, pointer, validate_plan, validate_entry_links
+from validation_common import SCHEMA_DIR, ROOT, load_json, pointer
+from validate_documents import validate_documents
 
 SINGLETONS = {
     "profile.json": "profile",
-    "teaching.json": "teaching",
     "curriculum.json": "curriculum",
     "state/current.json": "current-state",
     "language/policy.json": "language-policy",
     "language/technical-terms.json": "technical-terms",
-    "project-instructions.json": "project-instructions",
+    ".agents/config.json": "config",
 }
 RECORD_TYPES = set(SINGLETONS.values()) | {"topic", "lesson", "exercise"}
-SCHEMA_NAMES = RECORD_TYPES | {"common", "system-plan"}
+SCHEMA_NAMES = RECORD_TYPES | {"common"}
 EXAMPLES_DIR = ".agents/examples"
 # Schema IDs are stable identifiers, independent of their local directory.
 BASE = "https://github.com/kamil-kazmierczak/java-learning/schemas/"
@@ -318,7 +318,6 @@ def validate_group(records, root, errors, kind):
             add(errors, "MISSING_REVIEW_QUEUE", path, "/review/next_due_on", topic_id)
 
     policy_path, policy = singleton("language-policy")
-    unique_index(policy["editorial_rules"], "rule_id", policy_path, "/editorial_rules", errors)
     keys = [(item["origin"], item["rule_id"]) for item in policy["coverage"]]
     if len(keys) != len(set(keys)):
         add(errors, "DUPLICATE_RULE", policy_path, "/coverage", "Coverage rule IDs must be unique per origin.")
@@ -376,10 +375,6 @@ def validate_repository(root):
     for path, value in data.items():
         if path in {f"{SCHEMA_DIR}/{name}.schema.json" for name in SCHEMA_NAMES}:
             continue
-        if path == PLAN:
-            for err in validate_plan(value, schemas["system-plan"]):
-                add(errors, err["rule_id"], err["file"], err["json_pointer"], err["message"], "DATA")
-            continue
         matched = route(path)
         if matched is None:
             add(errors, "NO_VALIDATION_ROUTE", path, "", "No schema is assigned to this path.", "DATA")
@@ -396,12 +391,10 @@ def validate_repository(root):
         if id_field and value[id_field] != expected_id:
             add(errors, "FILE_ID", path, "/" + id_field, "The ID must match the file path.", "DATA")
         groups[kind][path] = value
-    if PLAN not in data:
-        add(errors, "MISSING_PLAN", PLAN, "", "The plan is required.", "DATA")
     for record_type in sorted(RECORD_TYPES):
         if f"{EXAMPLES_DIR}/{record_type}.json" not in data:
             add(errors, "MISSING_EXAMPLE", f"{EXAMPLES_DIR}/{record_type}.json", "", record_type, "DATA")
-    for err in validate_entry_links(root):
+    for err in validate_documents(root):
         add(errors, err["rule_id"], err["file"], err["json_pointer"], err["message"])
     if not errors:
         for kind, records in groups.items():
@@ -424,7 +417,7 @@ def main():
         "scope": "record_contracts",
         "passed": not errors,
         "data_configuration_present": configured,
-        "coverage": ["strict_json", "json_schema_2020_12", "record_links", "progress_evidence", "lesson_index"],
+        "coverage": ["strict_json", "json_schema_2020_12", "record_links", "progress_evidence", "lesson_index", "markdown_links", "required_documents"],
         "ste_compliance": "not_verified",
         "semantic_truth": "requires_human_review",
         "errors": errors,

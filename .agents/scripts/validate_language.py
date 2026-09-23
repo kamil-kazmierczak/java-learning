@@ -7,10 +7,11 @@ import os
 import re
 from pathlib import Path
 
-from validate_plan import ROOT, load_json, pointer
+from validation_common import ROOT, load_json, pointer
 from validate_records import route
+from validate_documents import markdown_files, validate_documents
 
-VERSION = "1.0.0"
+VERSION = "1.1.0"
 RULES = {"STYLE-01", "STYLE-02", "STYLE-03", "STYLE-04"}
 FILLER = (
     "delve into", "game changer", "game-changing", "unlock the power",
@@ -29,7 +30,7 @@ EXACT_KEYS = {
     "chat", "review", "repository", "repository_language", "chat_language", "review_language",
     "assessment_mode", "topic_selection", "hint_order", "allowed_resources", "resources_used",
     "closure_command", "framework_use", "version_policy", "branch", "entry_file",
-    "required_checks", "standard", "checker", "exclusions", "command", "output",
+    "required_checks", "workflow_path", "standard", "checker", "exclusions", "command", "output",
     "code_paths", "ide", "jdk_distribution", "term", "allowed_forms", "avoid_forms",
 }
 
@@ -98,9 +99,15 @@ def validate_language(root=ROOT):
         for location, text in prose_fields(load_json(path)):
             for rule, message in check_text(text, terms):
                 add(rule, relative, location, message)
-    checked_files.append("AGENTS.md")
-    for rule, message in check_text((root / "AGENTS.md").read_text(encoding="utf-8"), terms):
-        add(rule, "AGENTS.md", "", message)
+    for error in validate_documents(root):
+        add(error['rule_id'], error['file'], '', error['message'])
+    for path in markdown_files(root):
+        relative = path.relative_to(root).as_posix()
+        if path.is_symlink() or not path.resolve().is_relative_to(root.resolve()):
+            continue
+        checked_files.append(relative)
+        for rule, message in check_text(path.read_text(encoding="utf-8"), terms):
+            add(rule, relative, "", message)
     return {
         "commit_sha": os.getenv("GITHUB_SHA"), "check_id": "LANGUAGE",
         "checker": f"project-style {VERSION}", "passed": not findings,
