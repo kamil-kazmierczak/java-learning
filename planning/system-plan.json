@@ -19,7 +19,7 @@
     "ide": "IntelliJ IDEA",
     "jdk_distribution": "Eclipse Temurin",
     "jdk_version": 25,
-    "daily_minutes": 60,
+    "daily_minutes": 30,
     "practice_within_session": true
   },
   "language": {
@@ -82,7 +82,7 @@
       "id": "LRN-05",
       "area": "learning",
       "basis": "user_confirmed",
-      "text": "Keep instruction, practice, review, and lesson closure within the daily 60-minute session. Adjust their duration to the task.",
+      "text": "Keep instruction, practice, review, and lesson closure within the daily 30-minute session. Adjust their duration to the task.",
       "verification": "Record unfinished work for a later session."
     },
     {
@@ -357,6 +357,20 @@
       "basis": "derived_design",
       "text": "If a correction changes approved meaning or progress, obtain new approval before saving it.",
       "verification": "Review a correction after a failed check."
+    },
+    {
+      "id": "LRN-14",
+      "area": "learning",
+      "basis": "derived_design",
+      "text": "Agree on a short session plan with a clear end point. Announce the final task and start closure after it.",
+      "verification": "The learner knows the remaining stages. The tutor closes without requiring the closure command."
+    },
+    {
+      "id": "VAL-09",
+      "area": "validation",
+      "basis": "derived_design",
+      "text": "Check complete runnable tutor examples and each changed variant before use. Identify unverified code and tutor defects explicitly.",
+      "verification": "Compilation and runtime claims have matching execution evidence. Tutor defects do not count as learner gaps."
     }
   ],
   "file_layout": [
@@ -619,6 +633,24 @@
       ],
       "scenario": "A workflow is missing, skipped, or still running; code has not been run.",
       "expected": "The tutor claims neither successful validation nor successful test execution."
+    },
+    {
+      "id": "AT-10",
+      "requirement_ids": [
+        "LRN-05",
+        "LRN-14"
+      ],
+      "scenario": "Start a session with the 30-minute budget, then reach the final planned task without a closure command.",
+      "expected": "The tutor states the plan, announces the last task, and starts review. Extra work remains a proposal."
+    },
+    {
+      "id": "AT-11",
+      "requirement_ids": [
+        "VAL-07",
+        "VAL-09"
+      ],
+      "scenario": "A changed tutor example fails compilation, or no execution tool is available.",
+      "expected": "The tutor corrects and rechecks faulty code or labels it unverified. A prediction is not execution evidence."
     }
   ],
   "implementation_steps": [
@@ -663,7 +695,7 @@
     {
       "id": "OPEN-03",
       "question": "How does the tutor track the remaining session time?",
-      "resolution": "Use the agreed closure command. Confirm a timing method before relying on automatic time limits.",
+      "resolution": "Use the profile budget and an explicit session plan. Ask about remaining time when no reliable clock is available. Keep exact timing open.",
       "blocks": "A claim that the tutor enforces an exact wall-clock limit."
     }
   ],

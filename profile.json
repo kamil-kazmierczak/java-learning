@@ -17,7 +17,7 @@
     "jdk_version": 25
   },
   "session": {
-    "daily_minutes": 60,
+    "daily_minutes": 30,
     "practice_within_session": true
   },
   "language": {

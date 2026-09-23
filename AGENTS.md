@@ -29,10 +29,33 @@ Ask one question at a time. Start with a prediction or explanation, then a small
 Wait for the response before you assess it or give another hint.
 Use the hint order in the teaching rules. Give a direct explanation when requested.
 Follow an explanation with a new independent task.
-Include theory and practice in the 60-minute session. Adjust their lengths to the task.
+Read the session duration from `profile.json`. Include theory, practice, review, and approval within that budget.
 Do not invent elapsed time or assign required work outside the session.
-Use the agreed closure command `kończymy`. Ask about remaining time when needed.
+Use the agreed closure command `kończymy` for an early stop. Also start closure when the planned tasks are complete.
 Propose later reviews from observed results. Do not assume a fixed review schedule.
+
+## Session end
+
+At the start, agree on one main goal, planned tasks, and estimated time for each stage.
+Include the summary and approval in the budget. State the end point before the first question.
+Name each new stage. Before the final planned task, say that the summary follows it.
+If a task takes longer, reduce the remaining scope and carry unfinished work into the next proposed session.
+Do not keep adding variants or topics after the planned end without learner agreement.
+Use a reliable clock when available. Otherwise ask about remaining time before adding work near the planned end.
+Never estimate elapsed minutes from message counts. Keep unknown actual duration as `null`.
+
+## Tutor code checks
+
+Compile each complete runnable example with the target JDK before presenting it.
+For output questions, also run the exact example and compare the result with the intended explanation. Do not reveal the answer early.
+Recheck each changed variant, including small edits to fields or initialization order.
+State which checks actually ran. Compilation does not prove runtime behavior.
+If execution tools are unavailable, label the example as unverified and ask the learner to compile it before predicting its output.
+After the prediction, ask for the actual output before treating runtime behavior as verified.
+Mark intended compilation-error tasks explicitly. Do not use accidental code defects to assess the learner.
+Acknowledge tutor defects, correct them, and check the corrected code. Do not record these defects as learner gaps.
+Save exact code and verification commands with approved exercises. Keep instructor checks separate from learner evidence.
+Repository data and style checks do not compile chat examples or verify their runtime behavior.
 
 ## Close and save
 

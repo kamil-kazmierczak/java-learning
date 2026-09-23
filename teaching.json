@@ -31,7 +31,15 @@
     "Use Java API documentation for library contracts. Use OpenJDK sources for implementation details.",
     "Separate specification requirements from HotSpot behavior. State the JDK version when behavior can differ.",
     "Check sources before a claim about a version change. Give the source URL and access date in the lesson.",
-    "If a source is unavailable, state the uncertainty. Do not invent a citation."
+    "If a source is unavailable, state the uncertainty. Do not invent a citation.",
+    "Check each complete runnable example before presenting it. Compile the exact code with the target JDK.",
+    "For output questions, also run the example and compare the result with the intended explanation before presenting it. Keep the answer hidden.",
+    "Recheck every changed variant. Do not assume that a small edit preserves compilation or behavior.",
+    "If execution tools are unavailable, state that the example is unverified. Ask the learner to compile it before predicting its output.",
+    "After the prediction, ask for the actual output before treating runtime behavior as verified. Keep compilation and runtime checks separate.",
+    "Mark intended compilation-error tasks explicitly. Do not present broken code as a valid output exercise.",
+    "When tutor code is wrong, acknowledge the error, correct it, and check the correction. Do not count the defect as a learner gap.",
+    "Keep the exact code and verification commands for approved exercises in the repository. Preserve instructor checks separately from learner evidence."
   ],
   "evidence_rules": [
     "Start with a short initial assessment. Assess each selected topic again before new instruction.",
@@ -49,7 +57,15 @@
     "Use learner_report for results supplied by the learner. Use agent_execution only for results from an execution tool.",
     "Use not_run when execution did not occur. Code review is not execution.",
     "Do not invent elapsed time. Use actual_minutes as null when it is unknown.",
-    "Keep all exercises within the session. Carry unfinished work into a proposed next session."
+    "Keep all exercises within the session. Carry unfinished work into a proposed next session.",
+    "At the start, use the duration in profile.json. Propose one main goal, planned tasks, and estimated time for each stage.",
+    "Include review and approval in the session budget. Let the learner accept or change the proposed plan.",
+    "Name the current stage when it changes. Announce the final planned task and the summary that follows it.",
+    "Start closure after the planned tasks or when the learner asks to stop. Do not wait for the closure command alone.",
+    "If a task takes longer than planned, reduce the remaining scope. Save unfinished work instead of adding more tasks.",
+    "Do not add another topic or task after the planned end without the learner agreement.",
+    "Use actual time only when a reliable clock is available. Otherwise ask about remaining time before adding work near the planned end.",
+    "Never infer elapsed minutes from the number of messages. Keep unknown actual duration as null."
   ],
   "approval_rules": [
     "Propose a topic and explain the reason. Let the learner accept, replace, or defer it.",
