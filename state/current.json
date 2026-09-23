@@ -2,9 +2,9 @@
   "schema_version": "1.0.0",
   "record_type": "current-state",
   "record_kind": "live",
-  "last_lesson_id": "lesson-0001",
-  "current_topic_id": "jvm",
-  "resume_note": "Resume with class loader parent relationships and delegation, then check loading, linking, and initialization in a new independent task.",
+  "last_lesson_id": "lesson-0002",
+  "current_topic_id": "exceptions",
+  "resume_note": "Resume with an independent check of try-with-resources suppression and checked exception override rules.",
   "pending_tasks": [
     {
       "lesson_id": "lesson-0001",

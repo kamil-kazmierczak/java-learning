@@ -16,8 +16,15 @@
       "topic_id": "jvm",
       "title": "JVM class initialization and class loading",
       "prerequisite_ids": [],
+      "selection": "deferred",
+      "reason": "The learner deferred further class loader work after the first diagnostic session."
+    },
+    {
+      "topic_id": "exceptions",
+      "title": "Java exceptions and resource handling",
+      "prerequisite_ids": [],
       "selection": "accepted",
-      "reason": "The learner selected JVM for the first diagnostic session."
+      "reason": "The learner selected exceptions after deferring further class loader work."
     }
   ]
 }

@@ -1,0 +1,439 @@
+{
+  "schema_version": "1.0.0",
+  "record_type": "lesson",
+  "record_kind": "live",
+  "lesson_id": "lesson-0002",
+  "date": "2026-09-23",
+  "kind": "diagnostic",
+  "title": "Java exception handling diagnostic",
+  "topic_ids": [
+    "exceptions"
+  ],
+  "goal": "Assess exception control flow, checked exceptions, overriding rules, resource closing, suppression, and exception causes.",
+  "time": {
+    "budget_minutes": 30,
+    "actual_minutes": null
+  },
+  "tasks": [
+    {
+      "task_id": "task-01",
+      "topic_ids": [
+        "exceptions"
+      ],
+      "exercise_id": null,
+      "prompt": "Predict return and exception behavior when finally contains return or throws another exception.",
+      "completion": "complete",
+      "resources_used": [
+        "llm_hints"
+      ],
+      "execution": {
+        "status": "not_run",
+        "source": "none",
+        "command": null,
+        "output": null
+      }
+    },
+    {
+      "task_id": "task-02",
+      "topic_ids": [
+        "exceptions"
+      ],
+      "exercise_id": null,
+      "prompt": "Predict propagation when finally completes normally after try throws.",
+      "completion": "complete",
+      "resources_used": [
+        "llm_hints"
+      ],
+      "execution": {
+        "status": "not_run",
+        "source": "none",
+        "command": null,
+        "output": null
+      }
+    },
+    {
+      "task_id": "task-03",
+      "topic_ids": [
+        "exceptions"
+      ],
+      "exercise_id": null,
+      "prompt": "Select catch clauses and determine reachability when Exception precedes RuntimeException.",
+      "completion": "complete",
+      "resources_used": [
+        "llm_hints"
+      ],
+      "execution": {
+        "status": "not_run",
+        "source": "none",
+        "command": null,
+        "output": null
+      }
+    },
+    {
+      "task_id": "task-04",
+      "topic_ids": [
+        "exceptions"
+      ],
+      "exercise_id": null,
+      "prompt": "Classify IOException, RuntimeException, and Error as checked or unchecked, and apply catch-or-declare rules.",
+      "completion": "complete",
+      "resources_used": [
+        "llm_hints"
+      ],
+      "execution": {
+        "status": "not_run",
+        "source": "none",
+        "command": null,
+        "output": null
+      }
+    },
+    {
+      "task_id": "task-05",
+      "topic_ids": [
+        "exceptions"
+      ],
+      "exercise_id": null,
+      "prompt": "Determine whether unchecked exceptions may appear in throws and whether throws Exception can cover IOException.",
+      "completion": "complete",
+      "resources_used": [
+        "llm_hints"
+      ],
+      "execution": {
+        "status": "not_run",
+        "source": "none",
+        "command": null,
+        "output": null
+      }
+    },
+    {
+      "task_id": "task-06",
+      "topic_ids": [
+        "exceptions"
+      ],
+      "exercise_id": null,
+      "prompt": "Apply checked and unchecked throws rules to overridden methods.",
+      "completion": "complete",
+      "resources_used": [
+        "llm_hints"
+      ],
+      "execution": {
+        "status": "not_run",
+        "source": "none",
+        "command": null,
+        "output": null
+      }
+    },
+    {
+      "task_id": "task-07",
+      "topic_ids": [
+        "exceptions"
+      ],
+      "exercise_id": null,
+      "prompt": "Explain primary and suppressed exceptions in try-with-resources.",
+      "completion": "complete",
+      "resources_used": [
+        "llm_hints"
+      ],
+      "execution": {
+        "status": "not_run",
+        "source": "none",
+        "command": null,
+        "output": null
+      }
+    },
+    {
+      "task_id": "task-08",
+      "topic_ids": [
+        "exceptions"
+      ],
+      "exercise_id": null,
+      "prompt": "Determine resource close order and suppression when multiple close methods throw.",
+      "completion": "complete",
+      "resources_used": [
+        "llm_hints"
+      ],
+      "execution": {
+        "status": "not_run",
+        "source": "none",
+        "command": null,
+        "output": null
+      }
+    },
+    {
+      "task_id": "task-09",
+      "topic_ids": [
+        "exceptions"
+      ],
+      "exercise_id": null,
+      "prompt": "Handle a called method that declares IOException by catch or throws.",
+      "completion": "complete",
+      "resources_used": [],
+      "execution": {
+        "status": "not_run",
+        "source": "none",
+        "command": null,
+        "output": null
+      }
+    },
+    {
+      "task_id": "task-10",
+      "topic_ids": [
+        "exceptions"
+      ],
+      "exercise_id": null,
+      "prompt": "Explain why a wrapped exception is passed as the cause and distinguish cause from suppressed exceptions.",
+      "completion": "complete",
+      "resources_used": [
+        "llm_hints"
+      ],
+      "execution": {
+        "status": "not_run",
+        "source": "none",
+        "command": null,
+        "output": null
+      }
+    },
+    {
+      "task_id": "task-11",
+      "topic_ids": [
+        "exceptions"
+      ],
+      "exercise_id": null,
+      "prompt": "Solve a new combined case with IOException, wrapping, finally, and getCause.",
+      "completion": "complete",
+      "resources_used": [],
+      "execution": {
+        "status": "not_run",
+        "source": "none",
+        "command": null,
+        "output": null
+      }
+    }
+  ],
+  "observations": [
+    {
+      "evidence_id": "evidence-01",
+      "task_id": "task-01",
+      "topic_id": "exceptions",
+      "kind": "practice",
+      "observed_result": "The learner did not know the initial return case, then correctly applied finally return and finally throw behavior after explanation.",
+      "help_level": "full_explanation",
+      "source": "chat_response",
+      "explained_mechanism": false,
+      "solved_new_variant": true,
+      "previous_evidence_ref": null
+    },
+    {
+      "evidence_id": "evidence-02",
+      "task_id": "task-02",
+      "topic_id": "exceptions",
+      "kind": "practice",
+      "observed_result": "The learner expected propagation but placed it before finally output and needed correction of the execution order.",
+      "help_level": "full_explanation",
+      "source": "chat_response",
+      "explained_mechanism": false,
+      "solved_new_variant": false,
+      "previous_evidence_ref": null
+    },
+    {
+      "evidence_id": "evidence-03",
+      "task_id": "task-03",
+      "topic_id": "exceptions",
+      "kind": "practice",
+      "observed_result": "The learner selected RuntimeException for IllegalArgumentException, but expected a broader catch before a narrower catch to compile.",
+      "help_level": "full_explanation",
+      "source": "chat_response",
+      "explained_mechanism": false,
+      "solved_new_variant": true,
+      "previous_evidence_ref": null
+    },
+    {
+      "evidence_id": "evidence-04",
+      "task_id": "task-04",
+      "topic_id": "exceptions",
+      "kind": "practice",
+      "observed_result": "The learner expected IOException without catch or throws to compile and classified Error as checked.",
+      "help_level": "full_explanation",
+      "source": "chat_response",
+      "explained_mechanism": false,
+      "solved_new_variant": false,
+      "previous_evidence_ref": null
+    },
+    {
+      "evidence_id": "evidence-05",
+      "task_id": "task-05",
+      "topic_id": "exceptions",
+      "kind": "practice",
+      "observed_result": "The learner correctly said unchecked exceptions may appear in throws, but did not know that throws Exception covers IOException.",
+      "help_level": "full_explanation",
+      "source": "chat_response",
+      "explained_mechanism": false,
+      "solved_new_variant": true,
+      "previous_evidence_ref": null
+    },
+    {
+      "evidence_id": "evidence-06",
+      "task_id": "task-06",
+      "topic_id": "exceptions",
+      "kind": "practice",
+      "observed_result": "The learner first attributed an invalid wider throws clause to signature mismatch, then solved narrower and unchecked override variants.",
+      "help_level": "full_explanation",
+      "source": "chat_response",
+      "explained_mechanism": true,
+      "solved_new_variant": true,
+      "previous_evidence_ref": null
+    },
+    {
+      "evidence_id": "evidence-07",
+      "task_id": "task-07",
+      "topic_id": "exceptions",
+      "kind": "practice",
+      "observed_result": "The learner first expected a close exception to replace the try exception, then correctly identified the primary and suppressed exceptions.",
+      "help_level": "full_explanation",
+      "source": "chat_response",
+      "explained_mechanism": false,
+      "solved_new_variant": true,
+      "previous_evidence_ref": null
+    },
+    {
+      "evidence_id": "evidence-08",
+      "task_id": "task-08",
+      "topic_id": "exceptions",
+      "kind": "practice",
+      "observed_result": "The learner first expected resource A to close first, then correctly handled reverse close order and multiple suppressed exceptions.",
+      "help_level": "full_explanation",
+      "source": "chat_response",
+      "explained_mechanism": false,
+      "solved_new_variant": true,
+      "previous_evidence_ref": null
+    },
+    {
+      "evidence_id": "evidence-09",
+      "task_id": "task-09",
+      "topic_id": "exceptions",
+      "kind": "independent_attempt",
+      "observed_result": "The learner correctly said the caller must catch IOException or declare it with throws.",
+      "help_level": "none",
+      "source": "chat_response",
+      "explained_mechanism": true,
+      "solved_new_variant": true,
+      "previous_evidence_ref": null
+    },
+    {
+      "evidence_id": "evidence-10",
+      "task_id": "task-10",
+      "topic_id": "exceptions",
+      "kind": "practice",
+      "observed_result": "The learner described the cause as an exception hierarchy, then distinguished the cause chain from additional suppressed exceptions after clarification.",
+      "help_level": "full_explanation",
+      "source": "chat_response",
+      "explained_mechanism": true,
+      "solved_new_variant": true,
+      "previous_evidence_ref": null
+    },
+    {
+      "evidence_id": "evidence-11",
+      "task_id": "task-11",
+      "topic_id": "exceptions",
+      "kind": "independent_attempt",
+      "observed_result": "The learner correctly predicted cleanup output, IllegalStateException propagation, and IOException as the cause in a new combined case.",
+      "help_level": "none",
+      "source": "chat_response",
+      "explained_mechanism": false,
+      "solved_new_variant": true,
+      "previous_evidence_ref": null
+    }
+  ],
+  "assessments": [
+    {
+      "topic_id": "exceptions",
+      "status": "learning",
+      "evidence_ids": [
+        "evidence-01",
+        "evidence-02",
+        "evidence-03",
+        "evidence-04",
+        "evidence-05",
+        "evidence-06",
+        "evidence-07",
+        "evidence-08",
+        "evidence-09",
+        "evidence-10",
+        "evidence-11"
+      ],
+      "assessment": "The learner solved several new variants, but needed explanations for finally behavior, checked exceptions, override rules, and try-with-resources suppression.",
+      "uncertainty": "Independent evidence does not yet include a complete mechanism explanation for try-with-resources suppression and checked exception override rules."
+    }
+  ],
+  "errors": [
+    {
+      "task_id": "task-02",
+      "description": "The learner placed exception propagation before finally output.",
+      "correction": "The finally block completes before the pending exception continues to the caller."
+    },
+    {
+      "task_id": "task-03",
+      "description": "The learner expected catch Exception followed by catch RuntimeException to compile.",
+      "correction": "The narrower RuntimeException catch is unreachable after the broader Exception catch."
+    },
+    {
+      "task_id": "task-04",
+      "description": "The learner expected IOException without catch or throws to compile.",
+      "correction": "IOException is checked, so the code must catch it or declare it."
+    },
+    {
+      "task_id": "task-04",
+      "description": "The learner classified Error as checked.",
+      "correction": "Error and its subclasses are unchecked."
+    },
+    {
+      "task_id": "task-06",
+      "description": "The learner attributed an invalid wider throws clause to a signature mismatch.",
+      "correction": "A throws clause is not part of the method signature used for overriding."
+    },
+    {
+      "task_id": "task-07",
+      "description": "The learner expected the close exception to replace the try exception in try-with-resources.",
+      "correction": "The try exception remains primary and the close exception becomes suppressed."
+    },
+    {
+      "task_id": "task-08",
+      "description": "The learner expected the first declared resource to close first.",
+      "correction": "Resources close in reverse declaration order."
+    }
+  ],
+  "unfinished_tasks": [],
+  "sources": [
+    {
+      "id": "source-01",
+      "title": "Java Language Specification, Chapter 11: Exceptions",
+      "url": "https://docs.oracle.com/javase/specs/jls/se25/html/jls-11.html",
+      "accessed_on": "2026-09-23",
+      "jdk_versions": [
+        25
+      ]
+    },
+    {
+      "id": "source-02",
+      "title": "Java Language Specification, Section 14.20: The try statement",
+      "url": "https://docs.oracle.com/javase/specs/jls/se25/html/jls-14.html#jls-14.20",
+      "accessed_on": "2026-09-23",
+      "jdk_versions": [
+        25
+      ]
+    }
+  ],
+  "next_step": {
+    "topic_ids": [
+      "exceptions"
+    ],
+    "reason": "Use a new independent task to check try-with-resources suppression and checked exception override rules."
+  },
+  "approval": {
+    "status": "approved",
+    "review_language": "pl",
+    "approved_on": "2026-09-23",
+    "scope": "lesson_and_related_state_changes",
+    "basis": "The learner wrote \"zatwierdzam\" after reviewing the Polish summary and proposed state changes."
+  }
+}

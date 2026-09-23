@@ -5,7 +5,7 @@
   "topic_id": "jvm",
   "title": "JVM class initialization and class loading",
   "status": "learning",
-  "selection": "accepted",
+  "selection": "deferred",
   "updated_from_lesson_id": "lesson-0001",
   "evidence_refs": [
     {

@@ -78,3 +78,4 @@ During setup, paste the complete [project instructions](.agents/project-instruct
 ## Lesson index
 
 - [lesson-0001](lessons/lesson-0001.json): JVM class initialization diagnostic
+- [lesson-0002](lessons/lesson-0002.json): Java exception handling diagnostic
