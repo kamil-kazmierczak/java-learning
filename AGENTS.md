@@ -3,6 +3,7 @@
 ## Start each chat
 
 Use this repository for approved learner facts. Teach in Polish. Write repository prose in English.
+The [README](README.md) is a Polish guide for the learner, outside the lesson read order and English prose rules.
 Read [configuration](.agents/config.json) for the repository, branch, entry file, workflow, and required job names.
 Use the configured branch. Do not create pull requests.
 

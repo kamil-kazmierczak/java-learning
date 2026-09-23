@@ -11,7 +11,8 @@ from validation_common import ROOT, load_json, pointer
 from validate_records import route
 from validate_documents import markdown_files, validate_documents
 
-VERSION = "1.1.0"
+VERSION = "1.1.1"
+PROSE_EXCLUSIONS = {"README.md": "Polish user guide; local links remain validated."}
 RULES = {"STYLE-01", "STYLE-02", "STYLE-03", "STYLE-04"}
 FILLER = (
     "delve into", "game changer", "game-changing", "unlock the power",
@@ -103,6 +104,8 @@ def validate_language(root=ROOT):
         add(error['rule_id'], error['file'], '', error['message'])
     for path in markdown_files(root):
         relative = path.relative_to(root).as_posix()
+        if relative in PROSE_EXCLUSIONS:
+            continue
         if path.is_symlink() or not path.resolve().is_relative_to(root.resolve()):
             continue
         checked_files.append(relative)
@@ -112,6 +115,7 @@ def validate_language(root=ROOT):
         "commit_sha": os.getenv("GITHUB_SHA"), "check_id": "LANGUAGE",
         "checker": f"project-style {VERSION}", "passed": not findings,
         "coverage": policy["coverage"], "checked_files": checked_files,
+        "prose_exclusions": PROSE_EXCLUSIONS,
         "ste_compliance": "not_verified", "manual_review": "required",
         "extraction_limits": "Code spans, code fences, marked quotes, URLs, and exact fields are excluded. Review their use manually.",
         "errors": findings,

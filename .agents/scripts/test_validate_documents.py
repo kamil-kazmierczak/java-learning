@@ -68,6 +68,17 @@ class DocumentTests(unittest.TestCase):
                 self.assertTrue(any(e['rule_id'] == 'STYLE-02' and e['file'] == relative for e in report['errors']))
                 path.write_text(original)
 
+    def test_polish_readme_skips_prose_but_keeps_link_validation(self):
+        path = self.root / 'README.md'
+        path.write_text('Great job.\n')
+        report = validate_language(self.root)
+        self.assertNotIn('README.md', report['checked_files'])
+        self.assertIn('README.md', report['prose_exclusions'])
+        self.assertFalse(any(e['rule_id'] == 'STYLE-02' and e['file'] == 'README.md' for e in report['errors']))
+        path.write_text('[Brak](missing.md)\n')
+        self.assertTrue(any(e['rule_id'] == 'BROKEN_LINK' and e['file'] == 'README.md'
+                            for e in validate_language(self.root)['errors']))
+
     def test_language_check_rejects_missing_instructions(self):
         (self.root / '.agents/teaching.md').unlink()
         self.assertFalse(validate_language(self.root)['passed'])

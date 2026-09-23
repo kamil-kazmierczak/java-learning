@@ -1,7 +1,8 @@
 # Repository language rules
 
 Teach and review proposed lesson changes in Polish. Write repository prose in English.
-Use ASD-STE100 Issue 9 for repository prose.
+Use ASD-STE100 Issue 9 for English repository prose.
+The root [README](../README.md) is a Polish guide for the learner. It is outside the English prose check.
 See [checker configuration](../language/policy.json) for automatic and manual coverage.
 Use the [technical glossary](../language/technical-terms.json) for Java and JVM terms.
 
@@ -33,7 +34,8 @@ Review each new technical term before you add it. State its meaning and source.
 
 ## Review limits
 
-Automatic checks cover selected project rules in live JSON prose and repository Markdown.
+Automatic checks cover selected project rules in live JSON prose and repository Markdown, except the root README.
+Local links in the README remain subject to document validation.
 Schemas and fictional JSON examples are outside the prose check.
 A successful job does not establish full STE compliance, technical accuracy, consent, or the truth of an observation.
 Review approved words, word classes, meanings, and applicable writing rules against Issue 9.
