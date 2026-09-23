@@ -35,57 +35,6 @@ W GitHubie wybieram tę gałąź, gdy chcę zobaczyć aktualne pliki.
 Po zmianie pliku instrukcji projektu ponownie wklejam jego treść do ustawień ChatGPT.
 Zmiana pliku w repozytorium nie aktualizuje automatycznie wcześniej wklejonych instrukcji.
 
-## Jak wygląda sesja
-
-Aktualny budżet wynosi **30 minut**, zgodnie z [profilem](profile.json).
-Obejmuje teorię, ćwiczenia, podsumowanie i zatwierdzenie zapisu.
-Na początku nauczyciel proponuje jeden główny cel, zadania i szacowany czas etapów.
-
-Najpierw odpowiadam na pytania lub przewiduję zachowanie kodu.
-Gdy potrzebuję pomocy, nauczyciel zaczyna od pytania naprowadzającego, potem daje bardziej konkretną wskazówkę.
-Mogę od razu poprosić o pełne wyjaśnienie.
-Po wyjaśnieniu dostaję nowe zadanie, które pozwala sprawdzić samodzielne rozumienie.
-
-Pracuję w IntelliJ IDEA z Eclipse Temurin Java 25.
-Przy samodzielnym zadaniu mogę używać IDE, testów i dokumentacji; podpowiedzi LLM muszą być odnotowane.
-Przewidzenie wyniku w rozmowie nie oznacza, że kod został uruchomiony.
-Gdy uruchamiam kod u siebie, wklejam rzeczywisty wynik lub błąd.
-
-Czas jest budżetem planowania, nie gwarantowanym automatycznym minutnikiem.
-Jeżeli zadanie trwa dłużej, nauczyciel ogranicza pozostały zakres i proponuje przeniesienie niedokończonej pracy.
-Powinien zapowiedzieć ostatnie zadanie i przejść do podsumowania bez czekania na dodatkową komendę.
-
-## Przydatne wiadomości
-
-To przykłady wiadomości, a nie specjalne komendy programu.
-
-| Co chcę zrobić | Co mogę napisać |
-| --- | --- |
-| Zacząć sesję | „Rozpocznij kolejną lekcję na podstawie repozytorium.” |
-| Zmienić temat | „Ten temat odkładamy. Zaproponuj inny i wyjaśnij dlaczego.” |
-| Dostać małą podpowiedź | „Zadaj pytanie naprowadzające.” |
-| Poznać wyjaśnienie | „Wyjaśnij mi to wprost, potem daj nowe zadanie.” |
-| Ograniczyć zakres | „Mam jeszcze 10 minut. Dostosuj plan i zostaw czas na podsumowanie.” |
-| Zakończyć wcześniej | „Kończymy.” |
-| Poprawić zapis | „Nie zatwierdzam jeszcze. Popraw informację o…” |
-| Zatwierdzić zapis | „Zatwierdzam podsumowanie i pokazane zmiany. Zapisz je.” |
-
-## Co sprawdzam przed zatwierdzeniem
-
-Nauczyciel pokazuje podsumowanie i proponowane zmiany stanu po polsku, mimo że zapisuje je w repozytorium po angielsku.
-Sprawdzam, czy:
-
-- opis zadań i moich odpowiedzi zgadza się z rozmową;
-- zapis uwzględnia otrzymane podpowiedzi;
-- wyniki uruchomienia kodu są oddzielone od przewidywań i analizy;
-- błędy nauczyciela nie zostały zapisane jako moje luki;
-- ocena postępu ma uzasadnienie w wykonanych zadaniach;
-- niedokończona praca i kolejny proponowany krok są jasne.
-
-Akceptacja tematu nie oznacza zgody na zapis lekcji.
-Po zatwierdzeniu nauczyciel zapisuje lekcję i powiązane zmiany w jednym commicie.
-Każda lekcja ma osobny plik oraz odnośnik w indeksie w `AGENTS.md`.
-
 ## Jak rozumieć postęp
 
 | Stan | Znaczenie |
@@ -130,28 +79,3 @@ Elementy odpowiedzialne za działanie systemu:
 Markdown opisuje zasady i sposób korzystania. JSON przechowuje dane o określonej strukturze.
 Nie muszę czytać schematów ani skryptów przed lekcją.
 
-## Jak sprawdzić, czy zapis się udał
-
-W [GitHub Actions](https://github.com/kamil-kazmierczak/java-learning/actions) sprawdzam uruchomienie dla commita podanego przez nauczyciela.
-Obie kontrole muszą zakończyć się sukcesem:
-
-- `validate-data` — sprawdza strukturę danych, powiązania, indeks lekcji i lokalne odnośniki Markdown;
-- `validate-language` — sprawdza wybrane reguły angielskiego stylu w danych i dokumentach objętych kontrolą.
-
-Wynik dla wcześniejszego commita nie potwierdza nowego zapisu.
-Status oczekujący, pominięty lub zakończony błędem nie jest sukcesem.
-Walidacja nie dowodzi poprawności merytorycznej lekcji ani pełnej zgodności z ASD-STE100.
-Nie uruchamia też automatycznie przykładów Javy z rozmowy.
-
-Ten polski README jest poza kontrolą angielskiego stylu. Jego lokalne odnośniki nadal podlegają walidacji.
-
-## Gdy coś przerwie naukę
-
-- **Zamknąłem czat przed zatwierdzeniem:** nową sesję zaczynam od ostatniego zatwierdzonego i poprawnie sprawdzonego zapisu.
-  Niezapisana część rozmowy nie jest automatycznie odzyskiwana; mogę przekazać brakujący kontekst nauczycielowi.
-- **Zapisano commit, ale CI nie przeszło:** proszę nauczyciela o wskazanie błędu i przygotowanie poprawki.
-  Do wznowienia używany jest wcześniejszy zatwierdzony stan z poprawnymi kontrolami, o ile taki istnieje.
-- **Brakuje dostępu do GitHuba lub wyników kontroli:** najpierw przywracam dostęp.
-  Nauczyciel nie powinien deklarować udanego zapisu lub sprawdzenia bez potwierdzenia.
-- **Chcę zmienić czas, środowisko lub sposób nauki:** opisuję zmianę nauczycielowi i proszę o pokazanie odpowiednich zmian w repozytorium.
-  Profil przechowuje moje ustawienia; reguły prowadzenia lekcji znajdują się w `.agents/teaching.md`.
