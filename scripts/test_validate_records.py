@@ -1,6 +1,7 @@
 """Test record contracts with isolated learner fixtures."""
 import copy
 import json
+import re
 import shutil
 import tempfile
 import unittest
@@ -16,6 +17,19 @@ class RecordValidationTests(unittest.TestCase):
         self.addCleanup(self.temp.cleanup)
         self.root = Path(self.temp.name) / "repo"
         shutil.copytree(ROOT, self.root, ignore=shutil.ignore_patterns(".git", "__pycache__"))
+        # Keep tests independent of future real lessons and assessment results.
+        for directory in ("topics", "lessons", "exercises"):
+            shutil.rmtree(self.root / directory, ignore_errors=True)
+        curriculum = self.read("curriculum.json")
+        curriculum["topics"] = []
+        self.write("curriculum.json", curriculum)
+        state = self.read("state/current.json")
+        state.update(last_lesson_id=None, current_topic_id=None, resume_note=None,
+                     pending_tasks=[], proposed_topics=[], review_queue=[])
+        self.write("state/current.json", state)
+        entry = self.root / "AGENTS.md"
+        text = re.sub(r"\[[^\]]*\]\(lessons/[^)]+\)", "", entry.read_text())
+        entry.write_text(text)
 
     def read(self, path):
         return load_json(self.root / path)
@@ -82,10 +96,13 @@ class RecordValidationTests(unittest.TestCase):
         entry = self.root / "AGENTS.md"
         entry.write_text(entry.read_text() + "\n[Lesson 0002](lessons/lesson-0002.json)\n")
 
-    def test_contract_stage_has_no_learner_records(self):
+    def test_empty_fixture_has_no_invented_lesson_history(self):
         errors, configured = validate_repository(self.root)
         self.assertEqual(errors, [])
-        self.assertFalse(configured)
+        self.assertTrue(configured)
+        self.assertIsNone(self.read("state/current.json")["last_lesson_id"])
+        self.assertEqual(self.read("curriculum.json")["topics"], [])
+        self.assertEqual(list((self.root / "lessons").glob("*.json")), [])
 
     def test_each_record_type_rejects_missing_extra_and_changed_version(self):
         for record_type in sorted(RECORD_TYPES):

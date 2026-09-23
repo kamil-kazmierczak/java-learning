@@ -1,0 +1,28 @@
+{
+  "schema_version": "1.0.0",
+  "record_type": "profile",
+  "record_kind": "live",
+  "experience": {
+    "years": 6,
+    "role": "Java Backend Developer",
+    "context": "Commercial software development"
+  },
+  "goals": [
+    "Understand Java and JVM mechanisms in depth.",
+    "Find and fill gaps in existing knowledge."
+  ],
+  "environment": {
+    "ide": "IntelliJ IDEA",
+    "jdk_distribution": "Eclipse Temurin",
+    "jdk_version": 25
+  },
+  "session": {
+    "daily_minutes": 60,
+    "practice_within_session": true
+  },
+  "language": {
+    "chat": "pl",
+    "review": "pl",
+    "repository": "en"
+  }
+}

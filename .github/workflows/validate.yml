@@ -30,3 +30,21 @@ jobs:
         run: python scripts/validate_plan.py
       - name: Validate records and references
         run: python scripts/validate_records.py
+
+  validate-language:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - name: Read the exact commit
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.sha }}
+          persist-credentials: false
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install the validator
+        run: python -m pip install -r requirements-validation.txt
+      - name: Check project language rules
+        run: python scripts/validate_language.py

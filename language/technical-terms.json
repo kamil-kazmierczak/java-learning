@@ -1,0 +1,56 @@
+{
+  "schema_version": "1.0.0",
+  "record_type": "technical-terms",
+  "record_kind": "live",
+  "terms": [
+    {
+      "term": "Java",
+      "category": "technical_noun",
+      "meaning": "The programming language used in this project.",
+      "allowed_forms": [
+        "Java"
+      ],
+      "avoid_forms": [
+        "JAVA"
+      ],
+      "source_url": "https://docs.oracle.com/javase/specs/jls/se25/html/jls-1.html"
+    },
+    {
+      "term": "JVM",
+      "category": "technical_noun",
+      "meaning": "The Java Virtual Machine. It executes code in class files.",
+      "allowed_forms": [
+        "JVM",
+        "Java Virtual Machine"
+      ],
+      "avoid_forms": [
+        "JVM machine"
+      ],
+      "source_url": "https://docs.oracle.com/javase/specs/jvms/se25/html/jvms-1.html"
+    },
+    {
+      "term": "JDK",
+      "category": "technical_noun",
+      "meaning": "The Java Development Kit used to develop and run Java programs.",
+      "allowed_forms": [
+        "JDK",
+        "Java Development Kit"
+      ],
+      "avoid_forms": [
+        "JDK kit"
+      ],
+      "source_url": "https://openjdk.org/projects/jdk/25/"
+    },
+    {
+      "term": "class file",
+      "category": "technical_noun",
+      "meaning": "A file in the format defined by the Java Virtual Machine Specification.",
+      "allowed_forms": [
+        "class file",
+        "class files"
+      ],
+      "avoid_forms": [],
+      "source_url": "https://docs.oracle.com/javase/specs/jvms/se25/html/jvms-4.html"
+    }
+  ]
+}

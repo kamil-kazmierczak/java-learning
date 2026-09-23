@@ -1,0 +1,97 @@
+{
+  "schema_version": "1.0.0",
+  "record_type": "language-policy",
+  "record_kind": "live",
+  "standard": "ASD-STE100",
+  "issue": 9,
+  "source_url": "https://www.asd-ste100.org/STE_faq.html",
+  "repository_language": "en",
+  "chat_language": "pl",
+  "review_language": "pl",
+  "checker": "scripts/validate_language.py 1.0.0; project style checks only",
+  "full_automated_compliance_claim": false,
+  "exclusions": [
+    "code",
+    "api_name",
+    "identifier",
+    "url",
+    "exact_quote",
+    "enum_value"
+  ],
+  "editorial_rules": [
+    {
+      "rule_id": "STYLE-01",
+      "instruction": "Use at most 25 words in each prose sentence. This project limit does not replace STE instruction rules."
+    },
+    {
+      "rule_id": "STYLE-02",
+      "instruction": "Remove stock phrases and generic praise. The checker detects only its listed phrases."
+    },
+    {
+      "rule_id": "STYLE-03",
+      "instruction": "Write full word forms. Do not use contractions."
+    },
+    {
+      "rule_id": "STYLE-04",
+      "instruction": "Use the glossary names. The checker reports the listed avoid forms."
+    },
+    {
+      "rule_id": "STYLE-05",
+      "instruction": "Give evidence for each progress claim. Remove repetition and unsupported conclusions."
+    },
+    {
+      "rule_id": "STYLE-06",
+      "instruction": "Review each new technical term before you add it. State its meaning and source."
+    }
+  ],
+  "coverage": [
+    {
+      "rule_id": "STYLE-01",
+      "origin": "project",
+      "mode": "automatic",
+      "description": "Count words in prose sentences. Inspect live JSON records and AGENTS.md. Planning files, schemas, and fictional examples are outside this check."
+    },
+    {
+      "rule_id": "STYLE-02",
+      "origin": "project",
+      "mode": "automatic",
+      "description": "Detect a fixed list of filler phrases. This check cannot detect all poor writing."
+    },
+    {
+      "rule_id": "STYLE-03",
+      "origin": "project",
+      "mode": "automatic",
+      "description": "Detect common English contractions in prose."
+    },
+    {
+      "rule_id": "STYLE-04",
+      "origin": "project",
+      "mode": "automatic",
+      "description": "Detect exact avoid forms from the technical glossary. Unknown terms and meanings need manual review."
+    },
+    {
+      "rule_id": "STYLE-05",
+      "origin": "project",
+      "mode": "manual",
+      "description": "Check evidence, repetition, relevance, and the meaning of progress claims before approval."
+    },
+    {
+      "rule_id": "STYLE-06",
+      "origin": "project",
+      "mode": "manual",
+      "description": "Review new domain terms and their sources. Do not add ordinary English words to bypass a finding."
+    },
+    {
+      "rule_id": "STE-VOCABULARY",
+      "origin": "ste",
+      "mode": "manual",
+      "description": "Check approved words, their word classes, and meanings against Issue 9. A complete STE dictionary check is not implemented."
+    },
+    {
+      "rule_id": "STE-WRITING-RULES",
+      "origin": "ste",
+      "mode": "manual",
+      "description": "Review the applicable Issue 9 writing rules. The project checks do not establish compliance with those rules."
+    }
+  ]
+}

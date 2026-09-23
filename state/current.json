@@ -1,0 +1,11 @@
+{
+  "schema_version": "1.0.0",
+  "record_type": "current-state",
+  "record_kind": "live",
+  "last_lesson_id": null,
+  "current_topic_id": null,
+  "resume_note": null,
+  "pending_tasks": [],
+  "proposed_topics": [],
+  "review_queue": []
+}
