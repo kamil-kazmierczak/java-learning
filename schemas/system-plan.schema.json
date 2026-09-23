@@ -1,0 +1,572 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/kamil-kazmierczak/java-learning/schemas/system-plan.schema.json",
+  "title": "Java learning system plan",
+  "type": "object",
+  "properties": {
+    "schema_version": {
+      "const": "1.0.0",
+      "description": "The plan format version."
+    },
+    "plan_id": {
+      "const": "java-learning-system",
+      "description": "The stable plan ID."
+    },
+    "status": {
+      "const": "ready_for_implementation",
+      "description": "The plan is complete. The learning system still needs implementation."
+    },
+    "date": {
+      "type": "string",
+      "format": "date",
+      "description": "The plan date."
+    },
+    "repository": {
+      "type": "object",
+      "properties": {
+        "url": {
+          "const": "https://github.com/kamil-kazmierczak/java-learning",
+          "description": "The target repository."
+        },
+        "branch": {
+          "const": "develop",
+          "description": "The write branch."
+        },
+        "pull_requests": {
+          "const": false,
+          "description": "Do not use pull requests."
+        }
+      },
+      "required": [
+        "url",
+        "branch",
+        "pull_requests"
+      ],
+      "additionalProperties": false,
+      "description": "Repository settings."
+    },
+    "learner": {
+      "type": "object",
+      "properties": {
+        "experience_years": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Years of commercial experience."
+        },
+        "role": {
+          "type": "string",
+          "minLength": 1,
+          "description": "The learner role."
+        },
+        "experience_context": {
+          "type": "string",
+          "minLength": 1,
+          "description": "The work context."
+        },
+        "goals": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "description": "One item."
+          },
+          "minItems": 1,
+          "description": "Learning goals."
+        },
+        "ide": {
+          "type": "string",
+          "minLength": 1,
+          "description": "The learner IDE."
+        },
+        "jdk_distribution": {
+          "type": "string",
+          "minLength": 1,
+          "description": "The JDK distribution."
+        },
+        "jdk_version": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "The JDK version."
+        },
+        "daily_minutes": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 1440,
+          "description": "Daily time including practice and closure."
+        },
+        "practice_within_session": {
+          "const": true,
+          "description": "Practice is part of the session."
+        }
+      },
+      "required": [
+        "experience_years",
+        "role",
+        "experience_context",
+        "goals",
+        "ide",
+        "jdk_distribution",
+        "jdk_version",
+        "daily_minutes",
+        "practice_within_session"
+      ],
+      "additionalProperties": false,
+      "description": "Confirmed learner facts."
+    },
+    "language": {
+      "type": "object",
+      "properties": {
+        "repository_prose": {
+          "const": "en",
+          "description": "English repository prose."
+        },
+        "lesson_chat": {
+          "const": "pl",
+          "description": "Polish lessons."
+        },
+        "approval_review": {
+          "const": "pl",
+          "description": "Polish approval review."
+        },
+        "standard": {
+          "const": "ASD-STE100",
+          "description": "The language standard."
+        },
+        "standard_issue": {
+          "const": 9,
+          "description": "The chosen standard issue."
+        },
+        "automated_full_compliance_claim": {
+          "const": false,
+          "description": "Do not claim full compliance from partial checks."
+        },
+        "checker_selection": {
+          "type": "string",
+          "enum": [
+            "open"
+          ],
+          "description": "Tool selection is still open."
+        }
+      },
+      "required": [
+        "repository_prose",
+        "lesson_chat",
+        "approval_review",
+        "standard",
+        "standard_issue",
+        "automated_full_compliance_claim",
+        "checker_selection"
+      ],
+      "additionalProperties": false,
+      "description": "Language requirements."
+    },
+    "progress_states": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "string",
+            "enum": [
+              "not_assessed",
+              "learning",
+              "applied_independently",
+              "retained"
+            ],
+            "description": "A stable progress value."
+          },
+          "meaning": {
+            "type": "string",
+            "minLength": 1,
+            "description": "The evidence needed for this state."
+          }
+        },
+        "required": [
+          "value",
+          "meaning"
+        ],
+        "additionalProperties": false,
+        "description": "One progress state."
+      },
+      "minItems": 4,
+      "description": "The four agreed states.",
+      "maxItems": 4
+    },
+    "requirements": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[A-Z]+-[0-9]{2}$",
+            "description": "A unique requirement ID."
+          },
+          "area": {
+            "type": "string",
+            "enum": [
+              "learning",
+              "context",
+              "data",
+              "language",
+              "repository",
+              "validation"
+            ],
+            "description": "The requirement area."
+          },
+          "basis": {
+            "type": "string",
+            "enum": [
+              "user_confirmed",
+              "derived_design"
+            ],
+            "description": "Distinguish learner decisions from implementation details."
+          },
+          "text": {
+            "type": "string",
+            "minLength": 1,
+            "description": "The required action or constraint."
+          },
+          "verification": {
+            "type": "string",
+            "minLength": 1,
+            "description": "How to check this requirement."
+          }
+        },
+        "required": [
+          "id",
+          "area",
+          "basis",
+          "text",
+          "verification"
+        ],
+        "additionalProperties": false,
+        "description": "One requirement."
+      },
+      "minItems": 1,
+      "description": "System requirements."
+    },
+    "file_layout": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "path": {
+            "type": "string",
+            "minLength": 1,
+            "description": "A proposed path or path pattern."
+          },
+          "schema": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "The schema path. Null means a non-JSON file."
+          },
+          "purpose": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Why this file exists."
+          },
+          "load_when": {
+            "type": "string",
+            "minLength": 1,
+            "description": "When the tutor needs this file."
+          }
+        },
+        "required": [
+          "path",
+          "schema",
+          "purpose",
+          "load_when"
+        ],
+        "additionalProperties": false,
+        "description": "One planned file type."
+      },
+      "minItems": 1,
+      "description": "The future file layout. These paths are not claims that the files exist."
+    },
+    "session_flow": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1,
+            "description": "The session step ID."
+          },
+          "instruction": {
+            "type": "string",
+            "minLength": 1,
+            "description": "The action for this step."
+          }
+        },
+        "required": [
+          "id",
+          "instruction"
+        ],
+        "additionalProperties": false,
+        "description": "One session step."
+      },
+      "minItems": 1,
+      "description": "Session order."
+    },
+    "write_protocol": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "description": "One item."
+      },
+      "minItems": 1,
+      "description": "The write and approval procedure."
+    },
+    "validation": {
+      "type": "object",
+      "properties": {
+        "workflow_event": {
+          "const": "push",
+          "description": "The workflow event."
+        },
+        "branch": {
+          "const": "develop",
+          "description": "The validated branch."
+        },
+        "exact_commit_required": {
+          "const": true,
+          "description": "Read checks for the exact commit."
+        },
+        "checks": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "minLength": 1,
+                "description": "The check ID."
+              },
+              "scope": {
+                "type": "string",
+                "minLength": 1,
+                "description": "What this check covers."
+              },
+              "mode": {
+                "type": "string",
+                "enum": [
+                  "automatic",
+                  "automatic_with_manual_review",
+                  "manual_review"
+                ],
+                "description": "How the check runs."
+              }
+            },
+            "required": [
+              "id",
+              "scope",
+              "mode"
+            ],
+            "additionalProperties": false,
+            "description": "One planned check."
+          },
+          "minItems": 1,
+          "description": "Planned checks."
+        },
+        "report_fields": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "description": "One item."
+          },
+          "minItems": 1,
+          "description": "Required validation report fields."
+        },
+        "bootstrap_scope": {
+          "type": "string",
+          "minLength": 1,
+          "description": "What the initial plan validator does and does not check."
+        },
+        "failure_policy": {
+          "type": "string",
+          "minLength": 1,
+          "description": "What happens after failed checks."
+        }
+      },
+      "required": [
+        "workflow_event",
+        "branch",
+        "exact_commit_required",
+        "checks",
+        "report_fields",
+        "bootstrap_scope",
+        "failure_policy"
+      ],
+      "additionalProperties": false,
+      "description": "Validation design."
+    },
+    "acceptance_tests": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^AT-[0-9]{2}$",
+            "description": "The acceptance test ID."
+          },
+          "requirement_ids": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "description": "A requirement ID."
+            },
+            "minItems": 1,
+            "description": "Requirements covered by this test.",
+            "uniqueItems": true
+          },
+          "scenario": {
+            "type": "string",
+            "minLength": 1,
+            "description": "The test setup."
+          },
+          "expected": {
+            "type": "string",
+            "minLength": 1,
+            "description": "The required result."
+          }
+        },
+        "required": [
+          "id",
+          "requirement_ids",
+          "scenario",
+          "expected"
+        ],
+        "additionalProperties": false,
+        "description": "One acceptance test."
+      },
+      "minItems": 1,
+      "description": "Tests for system readiness."
+    },
+    "implementation_steps": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1,
+            "description": "The build step ID."
+          },
+          "text": {
+            "type": "string",
+            "minLength": 1,
+            "description": "The action to implement."
+          }
+        },
+        "required": [
+          "id",
+          "text"
+        ],
+        "additionalProperties": false,
+        "description": "One implementation step."
+      },
+      "minItems": 1,
+      "description": "The implementation sequence."
+    },
+    "open_decisions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1,
+            "description": "The open item ID."
+          },
+          "question": {
+            "type": "string",
+            "minLength": 1,
+            "description": "The unresolved question."
+          },
+          "resolution": {
+            "type": "string",
+            "minLength": 1,
+            "description": "How to resolve this item."
+          },
+          "blocks": {
+            "type": "string",
+            "minLength": 1,
+            "description": "What cannot be claimed until this item is resolved."
+          }
+        },
+        "required": [
+          "id",
+          "question",
+          "resolution",
+          "blocks"
+        ],
+        "additionalProperties": false,
+        "description": "One open technical item."
+      },
+      "minItems": 0,
+      "description": "Items that must not be silently assumed."
+    },
+    "sources": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1,
+            "description": "The source ID."
+          },
+          "url": {
+            "type": "string",
+            "format": "uri",
+            "pattern": "^https://",
+            "description": "The source URL."
+          },
+          "use": {
+            "type": "string",
+            "minLength": 1,
+            "description": "The reason to use this source."
+          }
+        },
+        "required": [
+          "id",
+          "url",
+          "use"
+        ],
+        "additionalProperties": false,
+        "description": "One source."
+      },
+      "minItems": 1,
+      "description": "Reference sources."
+    }
+  },
+  "required": [
+    "schema_version",
+    "plan_id",
+    "status",
+    "date",
+    "repository",
+    "learner",
+    "language",
+    "progress_states",
+    "requirements",
+    "file_layout",
+    "session_flow",
+    "write_protocol",
+    "validation",
+    "acceptance_tests",
+    "implementation_steps",
+    "open_decisions",
+    "sources"
+  ],
+  "additionalProperties": false,
+  "description": "The agreed plan and its proposed technical design."
+}

@@ -1,0 +1,30 @@
+name: Validate system plan
+
+on:
+  push:
+    branches: [develop]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate-plan:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - name: Read the exact commit
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.sha }}
+          persist-credentials: false
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install the validator
+        run: python -m pip install -r requirements-validation.txt
+      - name: Run negative tests
+        run: python -m unittest discover -s scripts -p 'test_*.py' -v
+      - name: Validate the plan
+        run: python scripts/validate_plan.py

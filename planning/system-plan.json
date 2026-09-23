@@ -1,0 +1,707 @@
+{
+  "schema_version": "1.0.0",
+  "plan_id": "java-learning-system",
+  "status": "ready_for_implementation",
+  "date": "2026-09-23",
+  "repository": {
+    "url": "https://github.com/kamil-kazmierczak/java-learning",
+    "branch": "develop",
+    "pull_requests": false
+  },
+  "learner": {
+    "experience_years": 6,
+    "role": "Java Backend Developer",
+    "experience_context": "Commercial software development",
+    "goals": [
+      "Understand Java and JVM mechanisms in depth.",
+      "Find and fill gaps in existing knowledge."
+    ],
+    "ide": "IntelliJ IDEA",
+    "jdk_distribution": "Eclipse Temurin",
+    "jdk_version": 25,
+    "daily_minutes": 60,
+    "practice_within_session": true
+  },
+  "language": {
+    "repository_prose": "en",
+    "lesson_chat": "pl",
+    "approval_review": "pl",
+    "standard": "ASD-STE100",
+    "standard_issue": 9,
+    "automated_full_compliance_claim": false,
+    "checker_selection": "open"
+  },
+  "progress_states": [
+    {
+      "value": "not_assessed",
+      "meaning": "There is not enough evidence."
+    },
+    {
+      "value": "learning",
+      "meaning": "The learner needs help or has a known gap."
+    },
+    {
+      "value": "applied_independently",
+      "meaning": "The learner explained the mechanism and solved a new task without LLM hints."
+    },
+    {
+      "value": "retained",
+      "meaning": "The learner repeated this result after a delay."
+    }
+  ],
+  "requirements": [
+    {
+      "id": "LRN-01",
+      "area": "learning",
+      "basis": "user_confirmed",
+      "text": "Use one ChatGPT project for Java. Start each lesson in a new chat.",
+      "verification": "Start a new chat and load the saved state."
+    },
+    {
+      "id": "LRN-02",
+      "area": "learning",
+      "basis": "user_confirmed",
+      "text": "Teach Java, the standard library, and the JVM. Use frameworks only when they help explain these subjects.",
+      "verification": "Review the topic map and one lesson."
+    },
+    {
+      "id": "LRN-03",
+      "area": "learning",
+      "basis": "user_confirmed",
+      "text": "Use a short initial assessment. Assess each topic again before instruction.",
+      "verification": "Record evidence from both types of assessment."
+    },
+    {
+      "id": "LRN-04",
+      "area": "learning",
+      "basis": "user_confirmed",
+      "text": "Propose the next topic and explain why it is useful. Let the learner accept, change, or defer it.",
+      "verification": "Show the topic choice in the lesson record."
+    },
+    {
+      "id": "LRN-05",
+      "area": "learning",
+      "basis": "user_confirmed",
+      "text": "Keep instruction, practice, review, and lesson closure within the daily 60-minute session. Adjust their duration to the task.",
+      "verification": "Record unfinished work for a later session."
+    },
+    {
+      "id": "LRN-06",
+      "area": "learning",
+      "basis": "user_confirmed",
+      "text": "Teach mechanisms that apply across Java versions. State relevant version differences.",
+      "verification": "Record the JDK version when a result depends on it."
+    },
+    {
+      "id": "LRN-07",
+      "area": "learning",
+      "basis": "user_confirmed",
+      "text": "Give a guiding question first. Then give a specific hint, a partial example, and a full explanation as needed.",
+      "verification": "Record the help given. Use a new task after a full explanation."
+    },
+    {
+      "id": "LRN-08",
+      "area": "learning",
+      "basis": "user_confirmed",
+      "text": "Let the learner request an explanation before all hint steps are complete.",
+      "verification": "Review the learner request and the tutor response."
+    },
+    {
+      "id": "LRN-09",
+      "area": "learning",
+      "basis": "user_confirmed",
+      "text": "Assess understanding, use in practice, use in a new task, and recall after a delay.",
+      "verification": "Link each progress change to evidence."
+    },
+    {
+      "id": "LRN-10",
+      "area": "learning",
+      "basis": "user_confirmed",
+      "text": "Allow the IDE, tests, and documentation during independent practical tasks. Do not give LLM hints during these tasks.",
+      "verification": "Record the resources and hints used."
+    },
+    {
+      "id": "LRN-11",
+      "area": "learning",
+      "basis": "user_confirmed",
+      "text": "Use the agreed progress states. Record a deferred topic separately from its progress state.",
+      "verification": "Check that a deferred topic is not marked as mastered."
+    },
+    {
+      "id": "LRN-12",
+      "area": "learning",
+      "basis": "user_confirmed",
+      "text": "Use recall tasks and later review tasks. Put these tasks inside lesson time.",
+      "verification": "Store review results and the next proposed review."
+    },
+    {
+      "id": "LRN-13",
+      "area": "learning",
+      "basis": "user_confirmed",
+      "text": "Use chat for short answers and results. Store larger exercises in the repository.",
+      "verification": "Link each larger exercise to its lesson."
+    },
+    {
+      "id": "CTX-01",
+      "area": "context",
+      "basis": "user_confirmed",
+      "text": "Use AGENTS.md as the entry file. Include a link to each lesson file.",
+      "verification": "Compare the lesson files with the lesson index."
+    },
+    {
+      "id": "CTX-02",
+      "area": "context",
+      "basis": "user_confirmed",
+      "text": "Store each lesson in a separate JSON file. Load only the files needed for the current task.",
+      "verification": "Review the file list used for a lesson."
+    },
+    {
+      "id": "CTX-03",
+      "area": "context",
+      "basis": "user_confirmed",
+      "text": "Keep the current state small. Store detailed evidence in topic and lesson files.",
+      "verification": "The next tutor can resume without reading all lessons."
+    },
+    {
+      "id": "CTX-04",
+      "area": "context",
+      "basis": "derived_design",
+      "text": "Put an explicit repository read instruction in the ChatGPT project setup.",
+      "verification": "A new chat reads AGENTS.md before it starts instruction."
+    },
+    {
+      "id": "CTX-05",
+      "area": "context",
+      "basis": "user_confirmed",
+      "text": "Use repository records for the learner profile, agreed rules, and progress. Use official Java sources for technical facts.",
+      "verification": "Keep source links with technical statements that need verification."
+    },
+    {
+      "id": "DATA-01",
+      "area": "data",
+      "basis": "user_confirmed",
+      "text": "Use JSON with a defined JSON Schema for each record type.",
+      "verification": "Reject data with missing fields, unknown fields, or incorrect types."
+    },
+    {
+      "id": "DATA-02",
+      "area": "data",
+      "basis": "user_confirmed",
+      "text": "Define field meaning, allowed values, IDs, dates, empty values, and schema versions.",
+      "verification": "Provide a schema and a separate valid example for each record type."
+    },
+    {
+      "id": "DATA-03",
+      "area": "data",
+      "basis": "user_confirmed",
+      "text": "Keep observations separate from tutor assessments. Record uncertainty when evidence is incomplete.",
+      "verification": "Inspect a record with an uncertain assessment."
+    },
+    {
+      "id": "DATA-04",
+      "area": "data",
+      "basis": "user_confirmed",
+      "text": "Record tasks, errors, help, progress evidence, sources, unfinished work, and the next proposed step in each lesson.",
+      "verification": "Validate a complete lesson record."
+    },
+    {
+      "id": "DATA-05",
+      "area": "data",
+      "basis": "user_confirmed",
+      "text": "Do not change a schema to make a failed lesson record pass. Request approval for format changes.",
+      "verification": "A format change has an approved plan for old records."
+    },
+    {
+      "id": "DATA-06",
+      "area": "data",
+      "basis": "derived_design",
+      "text": "Keep example records separate from real learner records.",
+      "verification": "Example results do not change learner progress."
+    },
+    {
+      "id": "LANG-01",
+      "area": "language",
+      "basis": "user_confirmed",
+      "text": "Write repository prose in English. Use ASD-STE100 Issue 9 as the language standard.",
+      "verification": "Review English prose against the standard and the declared rule coverage."
+    },
+    {
+      "id": "LANG-02",
+      "area": "language",
+      "basis": "user_confirmed",
+      "text": "Teach in Polish. Present lesson summaries and proposed progress changes in Polish for review.",
+      "verification": "The learner can review meaning without reading JSON."
+    },
+    {
+      "id": "LANG-03",
+      "area": "language",
+      "basis": "user_confirmed",
+      "text": "Use a controlled glossary for Java and JVM terms. Keep term meanings consistent.",
+      "verification": "Report unapproved terms and inconsistent names."
+    },
+    {
+      "id": "LANG-04",
+      "area": "language",
+      "basis": "user_confirmed",
+      "text": "Use direct instructions and evidence-based reports. Remove generic praise, filler, slogans, and repeated statements.",
+      "verification": "Apply the editorial rules and review meaning."
+    },
+    {
+      "id": "LANG-05",
+      "area": "language",
+      "basis": "derived_design",
+      "text": "Do not rewrite code, API names, IDs, or exact source quotations to satisfy prose rules.",
+      "verification": "Keep these fields separate from prose fields."
+    },
+    {
+      "id": "LANG-06",
+      "area": "language",
+      "basis": "user_confirmed",
+      "text": "Report which STE rules were checked and which need human review. Do not claim full compliance from a word filter.",
+      "verification": "The report states automated coverage and manual review limits."
+    },
+    {
+      "id": "GIT-01",
+      "area": "repository",
+      "basis": "user_confirmed",
+      "text": "Store approved work in kamil-kazmierczak/java-learning on develop. Do not use pull requests.",
+      "verification": "Check the branch and the commit."
+    },
+    {
+      "id": "GIT-02",
+      "area": "repository",
+      "basis": "user_confirmed",
+      "text": "Show the lesson summary and all related state changes before saving them. Save only after learner approval.",
+      "verification": "Compare the approved content with the saved content."
+    },
+    {
+      "id": "GIT-03",
+      "area": "repository",
+      "basis": "user_confirmed",
+      "text": "Save the lesson, its AGENTS.md link, state changes, and approved exercise changes in one commit.",
+      "verification": "Inspect the commit file list."
+    },
+    {
+      "id": "GIT-04",
+      "area": "repository",
+      "basis": "derived_design",
+      "text": "Read the branch before writing. Preserve other changes. Do not force-push.",
+      "verification": "Check the parent commit and update the branch without force."
+    },
+    {
+      "id": "GIT-05",
+      "area": "repository",
+      "basis": "user_confirmed",
+      "text": "When the learner says 'kończymy', stop new instruction and prepare the lesson record.",
+      "verification": "Close a lesson with an unfinished exercise."
+    },
+    {
+      "id": "GIT-06",
+      "area": "repository",
+      "basis": "user_confirmed",
+      "text": "After an interrupted chat, resume from the last approved saved state and ask for missing context.",
+      "verification": "Start a new chat after an unapproved draft."
+    },
+    {
+      "id": "VAL-01",
+      "area": "validation",
+      "basis": "user_confirmed",
+      "text": "Run automatic checks after each push to develop, including file additions and updates.",
+      "verification": "Inspect a workflow run for the saved commit."
+    },
+    {
+      "id": "VAL-02",
+      "area": "validation",
+      "basis": "user_confirmed",
+      "text": "Check JSON syntax, duplicate keys, schemas, IDs, references, and the lesson index.",
+      "verification": "Run valid and invalid fixtures."
+    },
+    {
+      "id": "VAL-03",
+      "area": "validation",
+      "basis": "user_confirmed",
+      "text": "Run language checks with explicit rule coverage. Keep language results separate from data results.",
+      "verification": "A data check cannot produce a full STE compliance claim."
+    },
+    {
+      "id": "VAL-04",
+      "area": "validation",
+      "basis": "user_confirmed",
+      "text": "Read the required check results for the exact saved commit. Missing, skipped, or pending checks are not success.",
+      "verification": "Match each required check to the commit SHA."
+    },
+    {
+      "id": "VAL-05",
+      "area": "validation",
+      "basis": "derived_design",
+      "text": "Use one checked commit for all reads in a lesson. If newer changes failed or remain unchecked, report this and use the last approved passing ancestor.",
+      "verification": "Start a lesson after a failed push."
+    },
+    {
+      "id": "VAL-06",
+      "area": "validation",
+      "basis": "derived_design",
+      "text": "Report each error with the file, JSON field path, rule ID, and message.",
+      "verification": "Inspect a failed validation report."
+    },
+    {
+      "id": "VAL-07",
+      "area": "validation",
+      "basis": "user_confirmed",
+      "text": "Do not claim that tests ran without execution evidence. Identify results supplied by the learner.",
+      "verification": "Keep code review and test execution as separate evidence."
+    },
+    {
+      "id": "VAL-08",
+      "area": "validation",
+      "basis": "derived_design",
+      "text": "If a correction changes approved meaning or progress, obtain new approval before saving it.",
+      "verification": "Review a correction after a failed check."
+    }
+  ],
+  "file_layout": [
+    {
+      "path": "AGENTS.md",
+      "schema": null,
+      "purpose": "Entry instructions and a link to each lesson.",
+      "load_when": "At the start of each chat."
+    },
+    {
+      "path": "profile.json",
+      "schema": "schemas/profile.schema.json",
+      "purpose": "Learner goals, experience, tools, and preferences.",
+      "load_when": "At the start of each chat."
+    },
+    {
+      "path": "teaching.json",
+      "schema": "schemas/teaching.schema.json",
+      "purpose": "Teaching, help, assessment, source, and approval rules.",
+      "load_when": "At the start of each chat."
+    },
+    {
+      "path": "state/current.json",
+      "schema": "schemas/current-state.schema.json",
+      "purpose": "Current work, unfinished tasks, and next proposed topics.",
+      "load_when": "At the start of each chat."
+    },
+    {
+      "path": "curriculum.json",
+      "schema": "schemas/curriculum.schema.json",
+      "purpose": "Topic map and prerequisites.",
+      "load_when": "During assessment or a change of learning direction."
+    },
+    {
+      "path": "topics/<topic-id>.json",
+      "schema": "schemas/topic.schema.json",
+      "purpose": "Topic progress, evidence, gaps, and reviews.",
+      "load_when": "When the current lesson needs this topic."
+    },
+    {
+      "path": "lessons/<lesson-id>.json",
+      "schema": "schemas/lesson.schema.json",
+      "purpose": "One approved lesson record.",
+      "load_when": "Read the last lesson. Read older lessons only when needed."
+    },
+    {
+      "path": "exercises/<exercise-id>/exercise.json",
+      "schema": "schemas/exercise.schema.json",
+      "purpose": "Task, constraints, expected checks, and code paths.",
+      "load_when": "When the learner works on this exercise."
+    },
+    {
+      "path": "exercises/<exercise-id>/*.java",
+      "schema": null,
+      "purpose": "Exercise code and tests.",
+      "load_when": "When the current task needs the code."
+    },
+    {
+      "path": "language/policy.json",
+      "schema": "schemas/language-policy.schema.json",
+      "purpose": "STE version, rule coverage, and editorial rules.",
+      "load_when": "When the tutor writes or reviews prose."
+    },
+    {
+      "path": "language/technical-terms.json",
+      "schema": "schemas/technical-terms.schema.json",
+      "purpose": "Approved Java and JVM terms with meanings and uses.",
+      "load_when": "When the tutor needs a domain term."
+    },
+    {
+      "path": "project-instructions.json",
+      "schema": "schemas/project-instructions.schema.json",
+      "purpose": "Setup text for the ChatGPT project and the start procedure.",
+      "load_when": "When the project is configured."
+    },
+    {
+      "path": "examples/<record-type>.json",
+      "schema": "schemas/<record-type>.schema.json",
+      "purpose": "Valid example data, separate from learner evidence.",
+      "load_when": "When the tutor creates a record of this type."
+    },
+    {
+      "path": ".github/workflows/validate.yml",
+      "schema": null,
+      "purpose": "Checks after each push to develop.",
+      "load_when": "GitHub Actions runs this file."
+    }
+  ],
+  "session_flow": [
+    {
+      "id": "START",
+      "instruction": "Load the checked entry file, profile, teaching rules, current state, and last lesson."
+    },
+    {
+      "id": "SELECT",
+      "instruction": "Propose a topic and ask the learner to accept or change it."
+    },
+    {
+      "id": "ASSESS",
+      "instruction": "Load the needed topic records. Assess prerequisites and current understanding."
+    },
+    {
+      "id": "TEACH",
+      "instruction": "Explain the mechanism and guide practice. Adjust the time used for each task."
+    },
+    {
+      "id": "CHECK",
+      "instruction": "Use an independent task and ask the learner to explain the result."
+    },
+    {
+      "id": "CLOSE",
+      "instruction": "Prepare the lesson record and state changes. Show their meaning in Polish."
+    },
+    {
+      "id": "APPROVE",
+      "instruction": "Apply requested edits and obtain approval for the final content."
+    },
+    {
+      "id": "SAVE",
+      "instruction": "Save one commit to develop. Read the automatic check results for that commit."
+    }
+  ],
+  "write_protocol": [
+    "Build all proposed changes from one known branch commit.",
+    "Validate the draft before writing when an execution tool is available.",
+    "Present the complete proposed meaning in Polish and obtain learner approval.",
+    "Read develop again. Resolve concurrent changes without dropping approved or existing data.",
+    "Ask for new approval if the content meaning changed.",
+    "Write one commit without a force update.",
+    "Wait for the required post-push checks for this commit.",
+    "If checks pass, return the commit and lesson links.",
+    "If checks fail, report the errors and prepare a correction.",
+    "If checks remain pending or unavailable, report that validation is incomplete."
+  ],
+  "validation": {
+    "workflow_event": "push",
+    "branch": "develop",
+    "exact_commit_required": true,
+    "checks": [
+      {
+        "id": "DATA",
+        "scope": "JSON syntax, duplicate keys, JSON Schema, and format versions.",
+        "mode": "automatic"
+      },
+      {
+        "id": "LINKS",
+        "scope": "Unique IDs, file references, lesson index, and state evidence links.",
+        "mode": "automatic"
+      },
+      {
+        "id": "LANGUAGE",
+        "scope": "Declared STE and editorial rules for English prose.",
+        "mode": "automatic_with_manual_review"
+      },
+      {
+        "id": "MEANING",
+        "scope": "Technical accuracy and the match between evidence and learner progress.",
+        "mode": "manual_review"
+      }
+    ],
+    "report_fields": [
+      "commit_sha",
+      "check_id",
+      "rule_id",
+      "file",
+      "json_pointer",
+      "severity",
+      "message",
+      "coverage"
+    ],
+    "bootstrap_scope": "The initial validate-plan workflow checks this plan, its schema, references, and negative tests. It does not validate future lesson records or certify STE compliance.",
+    "failure_policy": "A failed or unchecked commit is not the accepted state for the next lesson. No automatic history rewrite is allowed."
+  },
+  "acceptance_tests": [
+    {
+      "id": "AT-01",
+      "requirement_ids": [
+        "CTX-01",
+        "CTX-02",
+        "CTX-03",
+        "CTX-04"
+      ],
+      "scenario": "Start a new chat after a saved lesson.",
+      "expected": "The tutor loads only the needed files and identifies the unfinished task."
+    },
+    {
+      "id": "AT-02",
+      "requirement_ids": [
+        "LRN-03",
+        "LRN-04"
+      ],
+      "scenario": "Complete the initial assessment.",
+      "expected": "The tutor proposes a topic order and waits for the learner choice."
+    },
+    {
+      "id": "AT-03",
+      "requirement_ids": [
+        "LRN-07",
+        "LRN-09",
+        "LRN-10",
+        "LRN-11"
+      ],
+      "scenario": "Solve a task with two hints, then solve a different task without hints.",
+      "expected": "The record keeps the two results separate and does not mark the topic as retained."
+    },
+    {
+      "id": "AT-04",
+      "requirement_ids": [
+        "DATA-01",
+        "DATA-02",
+        "VAL-02"
+      ],
+      "scenario": "Supply a missing field, an extra field, a duplicate key, and an unknown topic ID.",
+      "expected": "Each invalid record fails with a specific error."
+    },
+    {
+      "id": "AT-05",
+      "requirement_ids": [
+        "GIT-02",
+        "GIT-03"
+      ],
+      "scenario": "Approve a lesson with state and exercise changes.",
+      "expected": "One commit contains the approved files and the lesson index entry."
+    },
+    {
+      "id": "AT-06",
+      "requirement_ids": [
+        "VAL-01",
+        "VAL-03",
+        "VAL-04",
+        "VAL-05"
+      ],
+      "scenario": "Push invalid data to develop in an isolated acceptance fixture.",
+      "expected": "The workflow fails. The next tutor uses the previous passing ancestor and reports the newer failure."
+    },
+    {
+      "id": "AT-07",
+      "requirement_ids": [
+        "LANG-01",
+        "LANG-02",
+        "LANG-06"
+      ],
+      "scenario": "Write and review a lesson record.",
+      "expected": "Repository prose is English. Review is Polish. The report states the limits of automated STE checks."
+    },
+    {
+      "id": "AT-08",
+      "requirement_ids": [
+        "GIT-05",
+        "GIT-06"
+      ],
+      "scenario": "End a lesson with unfinished work, then simulate an interrupted unapproved chat.",
+      "expected": "The next chat uses approved saved evidence and asks for missing context."
+    },
+    {
+      "id": "AT-09",
+      "requirement_ids": [
+        "VAL-04",
+        "VAL-07"
+      ],
+      "scenario": "A workflow is missing, skipped, or still running; code has not been run.",
+      "expected": "The tutor claims neither successful validation nor successful test execution."
+    }
+  ],
+  "implementation_steps": [
+    {
+      "id": "BUILD-01",
+      "text": "Create the record schemas, valid examples, and invalid test fixtures."
+    },
+    {
+      "id": "BUILD-02",
+      "text": "Create the learner profile, teaching rules, language policy, and project setup instructions."
+    },
+    {
+      "id": "BUILD-03",
+      "text": "Create an empty learning state. Do not invent assessment results or lesson history."
+    },
+    {
+      "id": "BUILD-04",
+      "text": "Build data, reference, and language checks. Test the exact commit read procedure."
+    },
+    {
+      "id": "BUILD-05",
+      "text": "Run the acceptance tests with isolated fixtures."
+    },
+    {
+      "id": "BUILD-06",
+      "text": "Run the first diagnostic lesson and test continuation in a new chat."
+    }
+  ],
+  "open_decisions": [
+    {
+      "id": "OPEN-01",
+      "question": "Which STE checking tool and rule set will be used?",
+      "resolution": "Compare tool coverage, official reference access, CI use, and any cost. Ask before a paid service is used.",
+      "blocks": "A claim of complete automated STE validation."
+    },
+    {
+      "id": "OPEN-02",
+      "question": "What is the review interval for each topic?",
+      "resolution": "Propose dates from assessment evidence and the learner session pattern. Do not assume one fixed schedule.",
+      "blocks": "A fixed spaced-review schedule."
+    },
+    {
+      "id": "OPEN-03",
+      "question": "How does the tutor track the remaining session time?",
+      "resolution": "Use the agreed closure command. Confirm a timing method before relying on automatic time limits.",
+      "blocks": "A claim that the tutor enforces an exact wall-clock limit."
+    }
+  ],
+  "sources": [
+    {
+      "id": "SRC-STE",
+      "url": "https://www.asd-ste100.org/STE_faq.html",
+      "use": "STE rules, dictionary scope, and domain terms."
+    },
+    {
+      "id": "SRC-STE-AI",
+      "url": "https://www.asd-ste100.org/STE_downloads.html",
+      "use": "Limits of AI claims about STE compliance."
+    },
+    {
+      "id": "SRC-SCHEMA",
+      "url": "https://json-schema.org/understanding-json-schema/reference/object",
+      "use": "Required fields and closed objects."
+    },
+    {
+      "id": "SRC-ACTIONS",
+      "url": "https://docs.github.com/en/actions/reference/workflows-and-actions/events-that-trigger-workflows",
+      "use": "Automatic checks after a push."
+    },
+    {
+      "id": "SRC-RECALL",
+      "url": "https://link.springer.com/article/10.1186/s41235-024-00598-y",
+      "use": "Evidence for recall and transfer. This study is not specific to Java developers."
+    },
+    {
+      "id": "SRC-SPACING",
+      "url": "https://www.mdpi.com/2076-328X/15/6/771",
+      "use": "Evidence for spaced practice. Apply it as a design hypothesis for this learner."
+    },
+    {
+      "id": "SRC-TUTOR",
+      "url": "https://doi.org/10.1073/pnas.2422633122",
+      "use": "Separate supported practice from independent skill assessment."
+    }
+  ]
+}
