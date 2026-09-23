@@ -1,0 +1,73 @@
+{
+  "schema_version": "1.0.0",
+  "record_type": "topic",
+  "record_kind": "live",
+  "topic_id": "jvm",
+  "title": "JVM class initialization and class loading",
+  "status": "learning",
+  "selection": "accepted",
+  "updated_from_lesson_id": "lesson-0001",
+  "evidence_refs": [
+    {
+      "lesson_id": "lesson-0001",
+      "evidence_id": "evidence-01"
+    },
+    {
+      "lesson_id": "lesson-0001",
+      "evidence_id": "evidence-02"
+    },
+    {
+      "lesson_id": "lesson-0001",
+      "evidence_id": "evidence-03"
+    },
+    {
+      "lesson_id": "lesson-0001",
+      "evidence_id": "evidence-04"
+    },
+    {
+      "lesson_id": "lesson-0001",
+      "evidence_id": "evidence-05"
+    },
+    {
+      "lesson_id": "lesson-0001",
+      "evidence_id": "evidence-06"
+    },
+    {
+      "lesson_id": "lesson-0001",
+      "evidence_id": "evidence-07"
+    },
+    {
+      "lesson_id": "lesson-0001",
+      "evidence_id": "evidence-08"
+    },
+    {
+      "lesson_id": "lesson-0001",
+      "evidence_id": "evidence-09"
+    },
+    {
+      "lesson_id": "lesson-0001",
+      "evidence_id": "evidence-10"
+    },
+    {
+      "lesson_id": "lesson-0001",
+      "evidence_id": "evidence-11"
+    },
+    {
+      "lesson_id": "lesson-0001",
+      "evidence_id": "evidence-12"
+    },
+    {
+      "lesson_id": "lesson-0001",
+      "evidence_id": "evidence-13"
+    }
+  ],
+  "gaps": [
+    "Distinguish class loading from class initialization and identify active initialization triggers.",
+    "Explain compile-time constants and when static values are assigned during preparation and initialization.",
+    "Explain class loader identity, parent relationships, and parent-first delegation."
+  ],
+  "review": {
+    "last_review_lesson_id": null,
+    "next_due_on": null
+  }
+}

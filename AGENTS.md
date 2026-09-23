@@ -102,5 +102,4 @@ Copy [project instructions](project-instructions.json) into the ChatGPT project 
 
 ## Lesson index
 
-No lessons have been saved.
-Add one relative link for each approved lesson when saving it.
+- [lesson-0001](lessons/lesson-0001.json): JVM class initialization diagnostic

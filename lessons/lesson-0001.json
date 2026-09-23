@@ -1,0 +1,519 @@
+{
+  "schema_version": "1.0.0",
+  "record_type": "lesson",
+  "record_kind": "live",
+  "lesson_id": "lesson-0001",
+  "date": "2026-09-23",
+  "kind": "diagnostic",
+  "title": "JVM class initialization diagnostic",
+  "topic_ids": [
+    "jvm"
+  ],
+  "goal": "Assess class initialization, static field behavior, and class loader basics.",
+  "time": {
+    "budget_minutes": 60,
+    "actual_minutes": null
+  },
+  "tasks": [
+    {
+      "task_id": "task-01",
+      "topic_ids": [
+        "jvm"
+      ],
+      "exercise_id": null,
+      "prompt": "Predict class initialization order when Main reads a non-constant static field.",
+      "completion": "complete",
+      "resources_used": [
+        "llm_hints"
+      ],
+      "execution": {
+        "status": "not_run",
+        "source": "none",
+        "command": null,
+        "output": null
+      }
+    },
+    {
+      "task_id": "task-02",
+      "topic_ids": [
+        "jvm"
+      ],
+      "exercise_id": null,
+      "prompt": "Compare compile-time constants with static final values computed by method calls.",
+      "completion": "complete",
+      "resources_used": [
+        "llm_hints"
+      ],
+      "execution": {
+        "status": "not_run",
+        "source": "none",
+        "command": null,
+        "output": null
+      }
+    },
+    {
+      "task_id": "task-03",
+      "topic_ids": [
+        "jvm"
+      ],
+      "exercise_id": null,
+      "prompt": "Predict initialization for 40 + 2 and Math.abs(-42) static final fields.",
+      "completion": "complete",
+      "resources_used": [],
+      "execution": {
+        "status": "not_run",
+        "source": "none",
+        "command": null,
+        "output": null
+      }
+    },
+    {
+      "task_id": "task-04",
+      "topic_ids": [
+        "jvm"
+      ],
+      "exercise_id": null,
+      "prompt": "Predict superclass and subclass initialization for static field access.",
+      "completion": "complete",
+      "resources_used": [
+        "llm_hints"
+      ],
+      "execution": {
+        "status": "not_run",
+        "source": "none",
+        "command": null,
+        "output": null
+      }
+    },
+    {
+      "task_id": "task-05",
+      "topic_ids": [
+        "jvm"
+      ],
+      "exercise_id": null,
+      "prompt": "Predict initialization when Child accesses a static field declared in Parent.",
+      "completion": "complete",
+      "resources_used": [],
+      "execution": {
+        "status": "not_run",
+        "source": "none",
+        "command": null,
+        "output": null
+      }
+    },
+    {
+      "task_id": "task-06",
+      "topic_ids": [
+        "jvm"
+      ],
+      "exercise_id": null,
+      "prompt": "Predict initialization when a static field is declared by an implemented interface.",
+      "completion": "complete",
+      "resources_used": [
+        "llm_hints"
+      ],
+      "execution": {
+        "status": "not_run",
+        "source": "none",
+        "command": null,
+        "output": null
+      }
+    },
+    {
+      "task_id": "task-07",
+      "topic_ids": [
+        "jvm"
+      ],
+      "exercise_id": null,
+      "prompt": "Predict initialization for an interface compile-time constant accessed through Child.",
+      "completion": "complete",
+      "resources_used": [],
+      "execution": {
+        "status": "not_run",
+        "source": "none",
+        "command": null,
+        "output": null
+      }
+    },
+    {
+      "task_id": "task-08",
+      "topic_ids": [
+        "jvm"
+      ],
+      "exercise_id": null,
+      "prompt": "Compare A.class, Class.forName, array creation, and object creation as initialization triggers.",
+      "completion": "complete",
+      "resources_used": [
+        "llm_hints"
+      ],
+      "execution": {
+        "status": "not_run",
+        "source": "none",
+        "command": null,
+        "output": null
+      }
+    },
+    {
+      "task_id": "task-09",
+      "topic_ids": [
+        "jvm"
+      ],
+      "exercise_id": null,
+      "prompt": "Compare class identity for the same binary name defined by different class loaders.",
+      "completion": "complete",
+      "resources_used": [
+        "llm_hints"
+      ],
+      "execution": {
+        "status": "not_run",
+        "source": "none",
+        "command": null,
+        "output": null
+      }
+    },
+    {
+      "task_id": "task-10",
+      "topic_ids": [
+        "jvm"
+      ],
+      "exercise_id": null,
+      "prompt": "Compare names, identity, casts, and assignability after separate class loader definitions.",
+      "completion": "complete",
+      "resources_used": [],
+      "execution": {
+        "status": "not_run",
+        "source": "none",
+        "command": null,
+        "output": null
+      }
+    },
+    {
+      "task_id": "task-11",
+      "topic_ids": [
+        "jvm"
+      ],
+      "exercise_id": null,
+      "prompt": "Explain parent delegation and why a class loader delegates to its parent.",
+      "completion": "complete",
+      "resources_used": [
+        "llm_hints"
+      ],
+      "execution": {
+        "status": "not_run",
+        "source": "none",
+        "command": null,
+        "output": null
+      }
+    },
+    {
+      "task_id": "task-12",
+      "topic_ids": [
+        "jvm"
+      ],
+      "exercise_id": null,
+      "prompt": "Distinguish loading, linking, preparation, resolution, and initialization.",
+      "completion": "complete",
+      "resources_used": [
+        "llm_hints"
+      ],
+      "execution": {
+        "status": "not_run",
+        "source": "none",
+        "command": null,
+        "output": null
+      }
+    },
+    {
+      "task_id": "task-13",
+      "topic_ids": [
+        "jvm"
+      ],
+      "exercise_id": null,
+      "prompt": "Track static field values through ordered class initialization in a new variant.",
+      "completion": "complete",
+      "resources_used": [],
+      "execution": {
+        "status": "not_run",
+        "source": "none",
+        "command": null,
+        "output": null
+      }
+    },
+    {
+      "task_id": "task-14",
+      "topic_ids": [
+        "jvm"
+      ],
+      "exercise_id": null,
+      "prompt": "Inspect Main.class.getClassLoader and its parent, then explain the observed loader relationship.",
+      "completion": "unfinished",
+      "resources_used": [],
+      "execution": {
+        "status": "not_run",
+        "source": "none",
+        "command": null,
+        "output": null
+      }
+    }
+  ],
+  "observations": [
+    {
+      "evidence_id": "evidence-01",
+      "task_id": "task-01",
+      "topic_id": "jvm",
+      "kind": "practice",
+      "observed_result": "The learner first placed A initialization before Main.main, then corrected the order after a guiding question.",
+      "help_level": "guiding_question",
+      "source": "chat_response",
+      "explained_mechanism": true,
+      "solved_new_variant": false,
+      "previous_evidence_ref": null
+    },
+    {
+      "evidence_id": "evidence-02",
+      "task_id": "task-02",
+      "topic_id": "jvm",
+      "kind": "practice",
+      "observed_result": "The learner initially expected a compile-time constant read to initialize its declaring class and needed a full explanation.",
+      "help_level": "full_explanation",
+      "source": "chat_response",
+      "explained_mechanism": false,
+      "solved_new_variant": false,
+      "previous_evidence_ref": null
+    },
+    {
+      "evidence_id": "evidence-03",
+      "task_id": "task-03",
+      "topic_id": "jvm",
+      "kind": "independent_attempt",
+      "observed_result": "The learner correctly predicted 42, middle, A static, 42 for the new constant and method-call variant.",
+      "help_level": "none",
+      "source": "chat_response",
+      "explained_mechanism": false,
+      "solved_new_variant": true,
+      "previous_evidence_ref": null
+    },
+    {
+      "evidence_id": "evidence-04",
+      "task_id": "task-04",
+      "topic_id": "jvm",
+      "kind": "practice",
+      "observed_result": "The learner identified that final was missing and then predicted Parent, Child, 42.",
+      "help_level": "guiding_question",
+      "source": "chat_response",
+      "explained_mechanism": false,
+      "solved_new_variant": true,
+      "previous_evidence_ref": null
+    },
+    {
+      "evidence_id": "evidence-05",
+      "task_id": "task-05",
+      "topic_id": "jvm",
+      "kind": "independent_attempt",
+      "observed_result": "The learner predicted Parent, 42 when the accessed static field was declared in Parent.",
+      "help_level": "none",
+      "source": "chat_response",
+      "explained_mechanism": false,
+      "solved_new_variant": true,
+      "previous_evidence_ref": null
+    },
+    {
+      "evidence_id": "evidence-06",
+      "task_id": "task-06",
+      "topic_id": "jvm",
+      "kind": "practice",
+      "observed_result": "The learner did not know the interface initialization case and needed a full explanation.",
+      "help_level": "full_explanation",
+      "source": "chat_response",
+      "explained_mechanism": false,
+      "solved_new_variant": false,
+      "previous_evidence_ref": null
+    },
+    {
+      "evidence_id": "evidence-07",
+      "task_id": "task-07",
+      "topic_id": "jvm",
+      "kind": "independent_attempt",
+      "observed_result": "The learner predicted only 42 and explained that the interface constant did not require Child initialization.",
+      "help_level": "none",
+      "source": "chat_response",
+      "explained_mechanism": true,
+      "solved_new_variant": true,
+      "previous_evidence_ref": null
+    },
+    {
+      "evidence_id": "evidence-08",
+      "task_id": "task-08",
+      "topic_id": "jvm",
+      "kind": "practice",
+      "observed_result": "After explanations, the learner predicted null for an array element and one class initialization before two constructor calls.",
+      "help_level": "full_explanation",
+      "source": "chat_response",
+      "explained_mechanism": false,
+      "solved_new_variant": true,
+      "previous_evidence_ref": null
+    },
+    {
+      "evidence_id": "evidence-09",
+      "task_id": "task-09",
+      "topic_id": "jvm",
+      "kind": "practice",
+      "observed_result": "The learner first expected equal Class objects for the same name from different class loaders and needed an explanation.",
+      "help_level": "full_explanation",
+      "source": "chat_response",
+      "explained_mechanism": false,
+      "solved_new_variant": false,
+      "previous_evidence_ref": null
+    },
+    {
+      "evidence_id": "evidence-10",
+      "task_id": "task-10",
+      "topic_id": "jvm",
+      "kind": "independent_attempt",
+      "observed_result": "The learner correctly distinguished equal class names from identity and correctly rejected cross-loader assignability.",
+      "help_level": "none",
+      "source": "chat_response",
+      "explained_mechanism": false,
+      "solved_new_variant": true,
+      "previous_evidence_ref": null
+    },
+    {
+      "evidence_id": "evidence-11",
+      "task_id": "task-11",
+      "topic_id": "jvm",
+      "kind": "practice",
+      "observed_result": "The learner expected parent-first delegation but needed explanations of the parent relationship and delegation purpose.",
+      "help_level": "full_explanation",
+      "source": "chat_response",
+      "explained_mechanism": false,
+      "solved_new_variant": false,
+      "previous_evidence_ref": null
+    },
+    {
+      "evidence_id": "evidence-12",
+      "task_id": "task-12",
+      "topic_id": "jvm",
+      "kind": "practice",
+      "observed_result": "The learner correctly placed a default static value in preparation but needed correction for ConstantValue assignment timing.",
+      "help_level": "full_explanation",
+      "source": "chat_response",
+      "explained_mechanism": true,
+      "solved_new_variant": true,
+      "previous_evidence_ref": null
+    },
+    {
+      "evidence_id": "evidence-13",
+      "task_id": "task-13",
+      "topic_id": "jvm",
+      "kind": "independent_attempt",
+      "observed_result": "The learner correctly predicted 20, 15, 35 for a new ordered static initialization variant without a hint.",
+      "help_level": "none",
+      "source": "chat_response",
+      "explained_mechanism": false,
+      "solved_new_variant": true,
+      "previous_evidence_ref": null
+    }
+  ],
+  "assessments": [
+    {
+      "topic_id": "jvm",
+      "status": "learning",
+      "evidence_ids": [
+        "evidence-01",
+        "evidence-02",
+        "evidence-03",
+        "evidence-04",
+        "evidence-05",
+        "evidence-06",
+        "evidence-07",
+        "evidence-08",
+        "evidence-09",
+        "evidence-10",
+        "evidence-11",
+        "evidence-12",
+        "evidence-13"
+      ],
+      "assessment": "The learner improved predictions after instruction and solved several new variants. Independent evidence does not yet include a complete mechanism explanation.",
+      "uncertainty": "Class loader delegation and initialization triggers still need an independent explanation and a fresh check."
+    }
+  ],
+  "errors": [
+    {
+      "task_id": "task-01",
+      "description": "The learner initially confused class loading with class initialization.",
+      "correction": "A non-constant static field read triggers initialization when the declaring class is actively used."
+    },
+    {
+      "task_id": "task-02",
+      "description": "The learner initially expected a compile-time constant field read to initialize its declaring class.",
+      "correction": "A compile-time constant can be inlined, so that field read does not require class initialization."
+    },
+    {
+      "task_id": "task-09",
+      "description": "The learner initially expected equal Class objects for the same binary name from different class loaders.",
+      "correction": "Class identity includes the defining class loader, so the two Class objects represent different runtime types."
+    },
+    {
+      "task_id": "task-13",
+      "description": "The tutor supplied two examples with illegal simple-name forward references to y.",
+      "correction": "The tutor corrected both examples to use A.y before continuing the initialization-order exercises."
+    }
+  ],
+  "unfinished_tasks": [
+    {
+      "task_id": "task-14",
+      "next_action": "Inspect the application class loader and its parent, then explain the observed delegation relationship."
+    }
+  ],
+  "sources": [
+    {
+      "id": "source-01",
+      "title": "Java Language Specification, Chapter 12",
+      "url": "https://docs.oracle.com/javase/specs/jls/se25/html/jls-12.html",
+      "accessed_on": "2026-09-23",
+      "jdk_versions": [
+        25
+      ]
+    },
+    {
+      "id": "source-02",
+      "title": "Java Virtual Machine Specification, Chapter 5",
+      "url": "https://docs.oracle.com/javase/specs/jvms/se25/html/jvms-5.html",
+      "accessed_on": "2026-09-23",
+      "jdk_versions": [
+        25
+      ]
+    },
+    {
+      "id": "source-03",
+      "title": "JDK 25 Class API",
+      "url": "https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/Class.html",
+      "accessed_on": "2026-09-23",
+      "jdk_versions": [
+        25
+      ]
+    },
+    {
+      "id": "source-04",
+      "title": "JDK 25 ClassLoader API",
+      "url": "https://docs.oracle.com/en/java/javase/25/docs/api/java.base/java/lang/ClassLoader.html",
+      "accessed_on": "2026-09-23",
+      "jdk_versions": [
+        25
+      ]
+    }
+  ],
+  "next_step": {
+    "topic_ids": [
+      "jvm"
+    ],
+    "reason": "Continue with class loader parent relationships and delegation. Then use a new independent task to check loading, linking, and initialization."
+  },
+  "approval": {
+    "status": "approved",
+    "review_language": "pl",
+    "approved_on": "2026-09-23",
+    "scope": "lesson_and_related_state_changes",
+    "basis": "The learner wrote \"zatwierdzam\" after reviewing the Polish lesson summary and all proposed related state changes."
+  }
+}
