@@ -141,9 +141,9 @@ class RecordValidationTests(unittest.TestCase):
                 self.assert_rule("JSON_PARSE")
 
     def test_schema_refs_do_not_fetch_external_resources(self):
-        schema = self.read("schemas/topic.schema.json")
+        schema = self.read(".agents/schemas/topic.schema.json")
         schema["properties"]["status"] = {"$ref": "https://invalid.example/schema.json"}
-        self.write("schemas/topic.schema.json", schema)
+        self.write(".agents/schemas/topic.schema.json", schema)
         self.assert_rule("SCHEMA_REFERENCE")
 
     def test_unknown_json_route(self):

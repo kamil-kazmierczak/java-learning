@@ -382,43 +382,43 @@
     },
     {
       "path": "profile.json",
-      "schema": "schemas/profile.schema.json",
+      "schema": ".agents/schemas/profile.schema.json",
       "purpose": "Learner goals, experience, tools, and preferences.",
       "load_when": "At the start of each chat."
     },
     {
       "path": "teaching.json",
-      "schema": "schemas/teaching.schema.json",
+      "schema": ".agents/schemas/teaching.schema.json",
       "purpose": "Teaching, help, assessment, source, and approval rules.",
       "load_when": "At the start of each chat."
     },
     {
       "path": "state/current.json",
-      "schema": "schemas/current-state.schema.json",
+      "schema": ".agents/schemas/current-state.schema.json",
       "purpose": "Current work, unfinished tasks, and next proposed topics.",
       "load_when": "At the start of each chat."
     },
     {
       "path": "curriculum.json",
-      "schema": "schemas/curriculum.schema.json",
+      "schema": ".agents/schemas/curriculum.schema.json",
       "purpose": "Topic map and prerequisites.",
       "load_when": "During assessment or a change of learning direction."
     },
     {
       "path": "topics/<topic-id>.json",
-      "schema": "schemas/topic.schema.json",
+      "schema": ".agents/schemas/topic.schema.json",
       "purpose": "Topic progress, evidence, gaps, and reviews.",
       "load_when": "When the current lesson needs this topic."
     },
     {
       "path": "lessons/<lesson-id>.json",
-      "schema": "schemas/lesson.schema.json",
+      "schema": ".agents/schemas/lesson.schema.json",
       "purpose": "One approved lesson record.",
       "load_when": "Read the last lesson. Read older lessons only when needed."
     },
     {
       "path": "exercises/<exercise-id>/exercise.json",
-      "schema": "schemas/exercise.schema.json",
+      "schema": ".agents/schemas/exercise.schema.json",
       "purpose": "Task, constraints, expected checks, and code paths.",
       "load_when": "When the learner works on this exercise."
     },
@@ -430,25 +430,25 @@
     },
     {
       "path": "language/policy.json",
-      "schema": "schemas/language-policy.schema.json",
+      "schema": ".agents/schemas/language-policy.schema.json",
       "purpose": "STE version, rule coverage, and editorial rules.",
       "load_when": "When the tutor writes or reviews prose."
     },
     {
       "path": "language/technical-terms.json",
-      "schema": "schemas/technical-terms.schema.json",
+      "schema": ".agents/schemas/technical-terms.schema.json",
       "purpose": "Approved Java and JVM terms with meanings and uses.",
       "load_when": "When the tutor needs a domain term."
     },
     {
       "path": "project-instructions.json",
-      "schema": "schemas/project-instructions.schema.json",
+      "schema": ".agents/schemas/project-instructions.schema.json",
       "purpose": "Setup text for the ChatGPT project and the start procedure.",
       "load_when": "When the project is configured."
     },
     {
       "path": "examples/<record-type>.json",
-      "schema": "schemas/<record-type>.schema.json",
+      "schema": ".agents/schemas/<record-type>.schema.json",
       "purpose": "Valid example data, separate from learner evidence.",
       "load_when": "When the tutor creates a record of this type."
     },

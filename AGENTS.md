@@ -61,7 +61,7 @@ Repository data and style checks do not compile chat examples or verify their ru
 
 1. Stop new instruction when the learner asks to close.
 2. Read [language rules](language/policy.json) and [technical terms](language/technical-terms.json).
-3. Read only the schemas for changed records and the needed [common fields](schemas/common.schema.json).
+3. Read only the schemas for changed records and the needed [common fields](.agents/schemas/common.schema.json).
 4. Prepare the lesson, code, topic map, topic states, current state, and index changes that the session needs.
 5. Review technical accuracy, evidence, and language. Report the limits of automatic checks.
 6. Show the complete proposed meaning in Polish. Include help, errors, progress, unfinished work, sources, and the next proposed step.
@@ -83,20 +83,20 @@ When checks fail, prepare a correction and report it. Do not declare the saved s
 Use version `1.0.0` and `record_kind: live` for actual records.
 Files in `examples/` are fictional. Never use their results as learner evidence.
 An ID must match its file name and remain stable after a title change.
-Read the schema before creating or changing a record. Do not change a schema to bypass a failure.
+Read the schema in `.agents/schemas/` before creating or changing a record. Do not change a schema to bypass a failure.
 
 | Record | Schema |
 | --- | --- |
-| Profile | [profile](schemas/profile.schema.json) |
-| Tutor rules | [teaching](schemas/teaching.schema.json) |
-| Topic map | [curriculum](schemas/curriculum.schema.json) |
-| Current state | [current-state](schemas/current-state.schema.json) |
-| Topic state | [topic](schemas/topic.schema.json) |
-| Lesson | [lesson](schemas/lesson.schema.json) |
-| Exercise | [exercise](schemas/exercise.schema.json) |
-| Language policy | [language-policy](schemas/language-policy.schema.json) |
-| Technical terms | [technical-terms](schemas/technical-terms.schema.json) |
-| Project setup | [project-instructions](schemas/project-instructions.schema.json) |
+| Profile | [profile](.agents/schemas/profile.schema.json) |
+| Tutor rules | [teaching](.agents/schemas/teaching.schema.json) |
+| Topic map | [curriculum](.agents/schemas/curriculum.schema.json) |
+| Current state | [current-state](.agents/schemas/current-state.schema.json) |
+| Topic state | [topic](.agents/schemas/topic.schema.json) |
+| Lesson | [lesson](.agents/schemas/lesson.schema.json) |
+| Exercise | [exercise](.agents/schemas/exercise.schema.json) |
+| Language policy | [language-policy](.agents/schemas/language-policy.schema.json) |
+| Technical terms | [technical-terms](.agents/schemas/technical-terms.schema.json) |
+| Project setup | [project-instructions](.agents/schemas/project-instructions.schema.json) |
 
 Keep observations separate from assessments. Record the source and help level for each observation.
 Use `applied_independently` only for a new solution and mechanism explanation without LLM hints.
@@ -119,7 +119,7 @@ GitHub Actions runs the checks after each push to `develop`.
 The language job checks declared project rules. It does not verify the complete STE dictionary or certify full STE compliance.
 Review the applicable STE rules and meanings before each lesson approval.
 Data checks cannot prove consent or the truth of an observation.
-For system changes, read [the approved plan](planning/system-plan.json) and [its schema](schemas/system-plan.schema.json).
+For system changes, read [the approved plan](planning/system-plan.json) and [its schema](.agents/schemas/system-plan.schema.json).
 Do not load the plan, all schemas, or all lesson files for routine teaching.
 Copy [project instructions](project-instructions.json) into the ChatGPT project instructions during setup.
 

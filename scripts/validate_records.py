@@ -10,7 +10,7 @@ from pathlib import Path
 from jsonschema import Draft202012Validator, FormatChecker
 from referencing import Registry, Resource
 
-from validate_plan import PLAN, SCHEMA, ROOT, load_json, pointer, validate_plan, validate_entry_links
+from validate_plan import PLAN, SCHEMA, SCHEMA_DIR, ROOT, load_json, pointer, validate_plan, validate_entry_links
 
 SINGLETONS = {
     "profile.json": "profile",
@@ -23,6 +23,7 @@ SINGLETONS = {
 }
 RECORD_TYPES = set(SINGLETONS.values()) | {"topic", "lesson", "exercise"}
 SCHEMA_NAMES = RECORD_TYPES | {"common", "system-plan"}
+# Schema IDs are stable identifiers, independent of their local directory.
 BASE = "https://github.com/kamil-kazmierczak/java-learning/schemas/"
 PATTERNS = (
     (r"topics/([a-z][a-z0-9]*(?:-[a-z0-9]+)*)\.json", "topic", "topic_id"),
@@ -80,7 +81,7 @@ def schema_registry(schemas, errors):
             try:
                 registry.resolver(schema["$id"]).lookup(ref)
             except Exception as error:
-                add(errors, "SCHEMA_REFERENCE", f"schemas/{name}.schema.json", "",
+                add(errors, "SCHEMA_REFERENCE", f"{SCHEMA_DIR}/{name}.schema.json", "",
                     str(error), "DATA")
     return registry
 
@@ -351,7 +352,7 @@ def validate_repository(root):
         except (ValueError, OSError) as error:
             add(errors, "JSON_PARSE", rel, "", str(error), "DATA")
     for name in sorted(SCHEMA_NAMES):
-        path = f"schemas/{name}.schema.json"
+        path = f"{SCHEMA_DIR}/{name}.schema.json"
         schema = data.get(path)
         if schema is None:
             add(errors, "MISSING_SCHEMA", path, "", name, "DATA")
@@ -359,7 +360,7 @@ def validate_repository(root):
         try:
             Draft202012Validator.check_schema(schema)
             if schema.get("$id") != BASE + name + ".schema.json":
-                raise ValueError("The schema ID must match its local route.")
+                raise ValueError("The schema ID must match the registered record type.")
             if schema.get("$schema") != "https://json-schema.org/draft/2020-12/schema":
                 raise ValueError("Use the agreed JSON Schema dialect.")
             schemas[name] = schema
@@ -372,7 +373,7 @@ def validate_repository(root):
         return errors, False
     groups = {"live": {}, "example": {}}
     for path, value in data.items():
-        if path in {f"schemas/{name}.schema.json" for name in SCHEMA_NAMES}:
+        if path in {f"{SCHEMA_DIR}/{name}.schema.json" for name in SCHEMA_NAMES}:
             continue
         if path == PLAN:
             for err in validate_plan(value, schemas["system-plan"]):

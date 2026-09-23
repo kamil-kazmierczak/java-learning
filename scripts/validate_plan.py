@@ -11,7 +11,8 @@ from jsonschema import Draft202012Validator, FormatChecker
 
 ROOT = Path(__file__).resolve().parents[1]
 PLAN = "planning/system-plan.json"
-SCHEMA = "schemas/system-plan.schema.json"
+SCHEMA_DIR = ".agents/schemas"
+SCHEMA = f"{SCHEMA_DIR}/system-plan.schema.json"
 
 
 def unique_object(pairs):
