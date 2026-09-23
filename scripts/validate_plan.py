@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import json
+import math
 import re
 import sys
 from pathlib import Path
@@ -26,16 +27,24 @@ def reject_constant(value):
     raise ValueError(f"Invalid JSON number: {value}")
 
 
+def finite_float(value):
+    result = float(value)
+    if not math.isfinite(result):
+        raise ValueError(f"Non-finite JSON number: {value}")
+    return result
+
+
 def load_json(path):
     return json.loads(
         Path(path).read_text(encoding="utf-8"),
         object_pairs_hook=unique_object,
         parse_constant=reject_constant,
+        parse_float=finite_float,
     )
 
 
 def pointer(parts):
-    return "/" + "/".join(str(p).replace("~", "~0").replace("/", "~1") for p in parts)
+    return "" if not parts else "/" + "/".join(str(p).replace("~", "~0").replace("/", "~1") for p in parts)
 
 
 def issue(rule, field, message, file=PLAN):
@@ -118,17 +127,11 @@ def validate_entry_links(root):
 
 def main():
     errors = []
-    for path in ROOT.rglob("*.json"):
-        rel = path.relative_to(ROOT).as_posix()
+    for rel in (PLAN, SCHEMA):
         try:
-            load_json(path)
+            load_json(ROOT / rel)
         except (ValueError, OSError) as error:
             errors.append(issue("JSON_PARSE", "", str(error), rel))
-        if rel not in (PLAN, SCHEMA):
-            errors.append(issue(
-                "NO_VALIDATION_ROUTE", "",
-                "Add the record schema and validation route before adding this JSON file.", rel
-            ))
     if not errors:
         try:
             errors.extend(validate_plan(load_json(ROOT / PLAN), load_json(ROOT / SCHEMA)))

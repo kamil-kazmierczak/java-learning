@@ -1,0 +1,83 @@
+{
+  "schema_version": "1.0.0",
+  "record_type": "lesson",
+  "record_kind": "example",
+  "lesson_id": "lesson-0001",
+  "date": "2026-01-10",
+  "kind": "diagnostic",
+  "title": "Fictional diagnostic lesson",
+  "topic_ids": [
+    "counter-state"
+  ],
+  "goal": "Test the linked record format.",
+  "time": {
+    "budget_minutes": 60,
+    "actual_minutes": null
+  },
+  "tasks": [
+    {
+      "task_id": "task-01",
+      "topic_ids": [
+        "counter-state"
+      ],
+      "exercise_id": "exercise-counter",
+      "prompt": "Explain the state change.",
+      "completion": "unfinished",
+      "resources_used": [
+        "llm_hints"
+      ],
+      "execution": {
+        "status": "not_run",
+        "source": "none",
+        "command": null,
+        "output": null
+      }
+    }
+  ],
+  "observations": [
+    {
+      "evidence_id": "evidence-01",
+      "task_id": "task-01",
+      "topic_id": "counter-state",
+      "kind": "practice",
+      "observed_result": "The example learner answered after a guiding question.",
+      "help_level": "guiding_question",
+      "source": "chat_response",
+      "explained_mechanism": false,
+      "solved_new_variant": false,
+      "previous_evidence_ref": null
+    }
+  ],
+  "assessments": [
+    {
+      "topic_id": "counter-state",
+      "status": "learning",
+      "evidence_ids": [
+        "evidence-01"
+      ],
+      "assessment": "The example learner still needs help.",
+      "uncertainty": "No independent task result is available."
+    }
+  ],
+  "errors": [],
+  "unfinished_tasks": [
+    {
+      "task_id": "task-01",
+      "next_action": "Run the test and explain the result."
+    }
+  ],
+  "sources": [],
+  "next_step": {
+    "topic_ids": [
+      "counter-state"
+    ],
+    "reason": "Complete the example task."
+  },
+  "approval": {
+    "status": "approved",
+    "review_language": "pl",
+    "approved_on": "2026-01-10",
+    "scope": "lesson_and_related_state_changes",
+    "basis": "Fictional approval for this example only."
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "schema_version": "1.0.0",
+  "record_type": "current-state",
+  "record_kind": "example",
+  "last_lesson_id": "lesson-0001",
+  "current_topic_id": "counter-state",
+  "resume_note": "Resume task-01 from lesson-0001.",
+  "pending_tasks": [
+    {
+      "lesson_id": "lesson-0001",
+      "task_id": "task-01",
+      "next_action": "Run the test and explain the result."
+    }
+  ],
+  "proposed_topics": [
+    {
+      "topic_id": "counter-state",
+      "reason": "The example task is not complete."
+    }
+  ],
+  "review_queue": []
+}

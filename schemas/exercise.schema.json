@@ -1,0 +1,113 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/kamil-kazmierczak/java-learning/schemas/exercise.schema.json",
+  "title": "exercise",
+  "type": "object",
+  "properties": {
+    "schema_version": {
+      "const": "1.0.0",
+      "description": "The format version. A change needs a migration plan."
+    },
+    "record_type": {
+      "const": "exercise",
+      "description": "The record type. The path selects the schema."
+    },
+    "record_kind": {
+      "type": "string",
+      "enum": [
+        "example",
+        "live"
+      ],
+      "description": "Examples are fictional. Only live records can store learner state."
+    },
+    "exercise_id": {
+      "$ref": "common.schema.json#/$defs/exercise_id",
+      "description": "The exercise ID."
+    },
+    "topic_ids": {
+      "type": "array",
+      "items": {
+        "$ref": "common.schema.json#/$defs/topic_id",
+        "description": "A topic used in the exercise."
+      },
+      "minItems": 1,
+      "description": "Exercise topics.",
+      "uniqueItems": true
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 2000,
+      "description": "The exercise title."
+    },
+    "task": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 2000,
+      "description": "The task to complete."
+    },
+    "constraints": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 2000,
+        "description": "One task constraint."
+      },
+      "minItems": 0,
+      "description": "Task constraints."
+    },
+    "success_criteria": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 2000,
+        "description": "One observable result."
+      },
+      "minItems": 1,
+      "description": "Criteria for the result."
+    },
+    "jdk_version": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 999,
+      "description": "The JDK version."
+    },
+    "code_paths": {
+      "type": "array",
+      "items": {
+        "$ref": "common.schema.json#/$defs/path",
+        "description": "A code or test file."
+      },
+      "minItems": 0,
+      "description": "Files in this exercise directory. Empty before code is saved.",
+      "uniqueItems": true
+    },
+    "sources": {
+      "type": "array",
+      "items": {
+        "$ref": "common.schema.json#/$defs/source",
+        "description": "A source for this task."
+      },
+      "minItems": 0,
+      "description": "Technical sources."
+    }
+  },
+  "required": [
+    "schema_version",
+    "record_type",
+    "record_kind",
+    "exercise_id",
+    "topic_ids",
+    "title",
+    "task",
+    "constraints",
+    "success_criteria",
+    "jdk_version",
+    "code_paths",
+    "sources"
+  ],
+  "additionalProperties": false,
+  "description": "A practical exercise. Store results in a lesson."
+}

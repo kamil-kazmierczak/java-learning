@@ -1,0 +1,27 @@
+{
+  "schema_version": "1.0.0",
+  "record_type": "profile",
+  "record_kind": "example",
+  "experience": {
+    "years": 2,
+    "role": "Example learner",
+    "context": "Fictional data for format checks."
+  },
+  "goals": [
+    "Explain a counter state change."
+  ],
+  "environment": {
+    "ide": "Example IDE",
+    "jdk_distribution": "Eclipse Temurin",
+    "jdk_version": 25
+  },
+  "session": {
+    "daily_minutes": 60,
+    "practice_within_session": true
+  },
+  "language": {
+    "chat": "pl",
+    "review": "pl",
+    "repository": "en"
+  }
+}

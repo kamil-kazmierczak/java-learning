@@ -1,0 +1,37 @@
+{
+  "schema_version": "1.0.0",
+  "record_type": "teaching",
+  "record_kind": "example",
+  "assessment_mode": "mixed",
+  "topic_selection": "learner_approval",
+  "hint_order": [
+    "guiding_question",
+    "specific_hint",
+    "partial_example",
+    "full_explanation"
+  ],
+  "explanation_on_request": true,
+  "new_task_after_explanation": true,
+  "independent_tasks": {
+    "allowed_resources": [
+      "ide",
+      "tests",
+      "documentation"
+    ],
+    "llm_hints": false
+  },
+  "session_rules": {
+    "flexible_time_allocation": true,
+    "closure_command": "kończymy",
+    "carry_unfinished_work": true
+  },
+  "source_rules": [
+    "Use official Java sources for technical facts."
+  ],
+  "evidence_rules": [
+    "Record help and observed results."
+  ],
+  "approval_rules": [
+    "Ask for approval of the lesson and related state changes."
+  ]
+}

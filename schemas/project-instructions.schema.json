@@ -1,0 +1,90 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/kamil-kazmierczak/java-learning/schemas/project-instructions.schema.json",
+  "title": "project instructions",
+  "type": "object",
+  "properties": {
+    "schema_version": {
+      "const": "1.0.0",
+      "description": "The format version. A change needs a migration plan."
+    },
+    "record_type": {
+      "const": "project-instructions",
+      "description": "The record type. The path selects the schema."
+    },
+    "record_kind": {
+      "type": "string",
+      "enum": [
+        "example",
+        "live"
+      ],
+      "description": "Examples are fictional. Only live records can store learner state."
+    },
+    "project_name": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 2000,
+      "description": "The project name."
+    },
+    "repository_url": {
+      "const": "https://github.com/kamil-kazmierczak/java-learning",
+      "description": "The source repository."
+    },
+    "branch": {
+      "const": "develop",
+      "description": "The approved branch."
+    },
+    "entry_file": {
+      "const": "AGENTS.md",
+      "description": "Read this file at the start."
+    },
+    "required_checks": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 2000,
+        "description": "A required GitHub Actions job name."
+      },
+      "minItems": 1,
+      "description": "Use success for the exact commit. Skipped is not success.",
+      "uniqueItems": true
+    },
+    "bootstrap_steps": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 2000,
+        "description": "One action at lesson start."
+      },
+      "minItems": 1,
+      "description": "Read instructions."
+    },
+    "failure_steps": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 2000,
+        "description": "One action after a failed or unknown check."
+      },
+      "minItems": 1,
+      "description": "Recovery instructions."
+    }
+  },
+  "required": [
+    "schema_version",
+    "record_type",
+    "record_kind",
+    "project_name",
+    "repository_url",
+    "branch",
+    "entry_file",
+    "required_checks",
+    "bootstrap_steps",
+    "failure_steps"
+  ],
+  "additionalProperties": false,
+  "description": "Setup text for the ChatGPT project."
+}

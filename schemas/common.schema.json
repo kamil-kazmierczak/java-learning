@@ -1,0 +1,283 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/kamil-kazmierczak/java-learning/schemas/common.schema.json",
+  "title": "Shared record fields",
+  "description": "Load only the definitions used by the current record.",
+  "$defs": {
+    "date": {
+      "type": "string",
+      "format": "date",
+      "description": "A valid calendar date in YYYY-MM-DD form."
+    },
+    "topic_id": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9]*(?:-[a-z0-9]+)*$",
+      "maxLength": 80,
+      "description": "A stable topic ID."
+    },
+    "lesson_id": {
+      "type": "string",
+      "pattern": "^lesson-[0-9]{4,}$",
+      "description": "A stable lesson ID. Its numeric part is the lesson sequence."
+    },
+    "exercise_id": {
+      "type": "string",
+      "pattern": "^exercise-[a-z0-9]+(?:-[a-z0-9]+)*$",
+      "description": "A stable exercise ID."
+    },
+    "task_id": {
+      "type": "string",
+      "pattern": "^task-[0-9]{2,}$",
+      "description": "A task ID, unique within a lesson."
+    },
+    "evidence_id": {
+      "type": "string",
+      "pattern": "^evidence-[0-9]{2,}$",
+      "description": "An evidence ID, unique within a lesson."
+    },
+    "path": {
+      "type": "string",
+      "pattern": "^(?!/)(?!.*(?:^|/)\\.\\.?(?:/|$))(?!.*\\\\)[A-Za-z0-9_.-]+(?:/[A-Za-z0-9_.-]+)*$",
+      "description": "A path from the repository root. Do not use parent paths or backslashes."
+    },
+    "url": {
+      "type": "string",
+      "format": "uri",
+      "pattern": "^https://",
+      "description": "An HTTPS source URL."
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "not_assessed",
+        "learning",
+        "applied_independently",
+        "retained"
+      ],
+      "description": "Progress based on saved evidence. A topic choice is not a progress state."
+    },
+    "help_level": {
+      "type": "string",
+      "enum": [
+        "none",
+        "guiding_question",
+        "specific_hint",
+        "partial_example",
+        "full_explanation"
+      ],
+      "description": "The greatest level of tutor help used for this attempt."
+    },
+    "evidence_ref": {
+      "type": "object",
+      "properties": {
+        "lesson_id": {
+          "$ref": "common.schema.json#/$defs/lesson_id",
+          "description": "The lesson with this evidence."
+        },
+        "evidence_id": {
+          "$ref": "common.schema.json#/$defs/evidence_id",
+          "description": "The evidence item in that lesson."
+        }
+      },
+      "required": [
+        "lesson_id",
+        "evidence_id"
+      ],
+      "additionalProperties": false,
+      "description": "A link to one saved evidence item."
+    },
+    "source": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^source-[0-9]{2,}$",
+          "description": "A source ID, unique in this record."
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 2000,
+          "description": "The source title."
+        },
+        "url": {
+          "$ref": "common.schema.json#/$defs/url",
+          "description": "The original source URL."
+        },
+        "accessed_on": {
+          "$ref": "common.schema.json#/$defs/date",
+          "description": "When the source was read."
+        },
+        "jdk_versions": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 999,
+            "description": "A relevant JDK version."
+          },
+          "uniqueItems": true,
+          "description": "An empty list means no version is specified."
+        }
+      },
+      "required": [
+        "id",
+        "title",
+        "url",
+        "accessed_on",
+        "jdk_versions"
+      ],
+      "additionalProperties": false,
+      "description": "A technical source."
+    },
+    "execution": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "string",
+          "enum": [
+            "not_run",
+            "passed",
+            "failed"
+          ],
+          "description": "Use not_run when there is no execution evidence."
+        },
+        "source": {
+          "type": "string",
+          "enum": [
+            "none",
+            "learner_report",
+            "agent_execution"
+          ],
+          "description": "Who supplied the execution result."
+        },
+        "command": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 2000,
+              "description": "The command or IDE action used."
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "Null when no execution took place."
+        },
+        "output": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 2000,
+              "description": "The actual result or an exact relevant excerpt."
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "Null when no execution took place."
+        }
+      },
+      "required": [
+        "status",
+        "source",
+        "command",
+        "output"
+      ],
+      "additionalProperties": false,
+      "description": "Execution evidence. Code review alone is not execution.",
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "const": "not_run"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "source": {
+                "const": "none"
+              },
+              "command": {
+                "type": "null"
+              },
+              "output": {
+                "type": "null"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "status": {
+                "enum": [
+                  "passed",
+                  "failed"
+                ]
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "source": {
+                "enum": [
+                  "learner_report",
+                  "agent_execution"
+                ]
+              },
+              "command": {
+                "type": "string",
+                "minLength": 1
+              },
+              "output": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          }
+        }
+      ]
+    },
+    "approval": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "const": "approved",
+          "description": "Save only approved lesson records."
+        },
+        "review_language": {
+          "const": "pl",
+          "description": "Review the meaning with the learner in Polish."
+        },
+        "approved_on": {
+          "$ref": "common.schema.json#/$defs/date",
+          "description": "The date of learner approval."
+        },
+        "scope": {
+          "const": "lesson_and_related_state_changes",
+          "description": "Approval covers the lesson and all related state changes."
+        },
+        "basis": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 2000,
+          "description": "Describe the actual approval given in chat. Do not invent approval."
+        }
+      },
+      "required": [
+        "status",
+        "review_language",
+        "approved_on",
+        "scope",
+        "basis"
+      ],
+      "additionalProperties": false,
+      "description": "Learner approval. Automated checks cannot prove that consent occurred."
+    }
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "schema_version": "1.0.0",
+  "record_type": "language-policy",
+  "record_kind": "example",
+  "standard": "ASD-STE100",
+  "issue": 9,
+  "source_url": "https://www.asd-ste100.org/STE_faq.html",
+  "repository_language": "en",
+  "chat_language": "pl",
+  "review_language": "pl",
+  "checker": null,
+  "full_automated_compliance_claim": false,
+  "exclusions": [
+    "code",
+    "api_name",
+    "identifier",
+    "url",
+    "exact_quote",
+    "enum_value"
+  ],
+  "editorial_rules": [
+    {
+      "rule_id": "STYLE-01",
+      "instruction": "Use evidence for each progress claim."
+    }
+  ],
+  "coverage": [
+    {
+      "rule_id": "1.3",
+      "origin": "ste",
+      "mode": "manual",
+      "description": "Use each word with its approved meaning."
+    },
+    {
+      "rule_id": "STYLE-01",
+      "origin": "project",
+      "mode": "not_implemented",
+      "description": "Review evidence for each progress claim."
+    }
+  ]
+}

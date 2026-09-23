@@ -1,0 +1,100 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/kamil-kazmierczak/java-learning/schemas/technical-terms.schema.json",
+  "title": "technical terms",
+  "type": "object",
+  "properties": {
+    "schema_version": {
+      "const": "1.0.0",
+      "description": "The format version. A change needs a migration plan."
+    },
+    "record_type": {
+      "const": "technical-terms",
+      "description": "The record type. The path selects the schema."
+    },
+    "record_kind": {
+      "type": "string",
+      "enum": [
+        "example",
+        "live"
+      ],
+      "description": "Examples are fictional. Only live records can store learner state."
+    },
+    "terms": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "term": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 2000,
+            "description": "The preferred technical term."
+          },
+          "category": {
+            "type": "string",
+            "enum": [
+              "technical_noun",
+              "technical_verb"
+            ],
+            "description": "The STE term category."
+          },
+          "meaning": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 2000,
+            "description": "The meaning in this project."
+          },
+          "allowed_forms": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 2000,
+              "description": "An allowed form."
+            },
+            "minItems": 1,
+            "description": "Allowed forms.",
+            "uniqueItems": true
+          },
+          "avoid_forms": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 2000,
+              "description": "A form not used for this concept."
+            },
+            "minItems": 0,
+            "description": "Forms to avoid.",
+            "uniqueItems": true
+          },
+          "source_url": {
+            "$ref": "common.schema.json#/$defs/url",
+            "description": "The technical source."
+          }
+        },
+        "required": [
+          "term",
+          "category",
+          "meaning",
+          "allowed_forms",
+          "avoid_forms",
+          "source_url"
+        ],
+        "additionalProperties": false,
+        "description": "One domain term."
+      },
+      "minItems": 0,
+      "description": "Empty until terms are reviewed."
+    }
+  },
+  "required": [
+    "schema_version",
+    "record_type",
+    "record_kind",
+    "terms"
+  ],
+  "additionalProperties": false,
+  "description": "Project terms. This is not the full STE dictionary."
+}

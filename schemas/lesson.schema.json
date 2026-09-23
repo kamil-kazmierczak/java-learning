@@ -1,0 +1,502 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/kamil-kazmierczak/java-learning/schemas/lesson.schema.json",
+  "title": "Lesson record",
+  "type": "object",
+  "properties": {
+    "schema_version": {
+      "const": "1.0.0",
+      "description": "The format version."
+    },
+    "record_type": {
+      "const": "lesson",
+      "description": "The file path selects the schema."
+    },
+    "record_kind": {
+      "type": "string",
+      "enum": [
+        "example",
+        "live"
+      ],
+      "description": "Examples are fictional. Only live records can store learner state."
+    },
+    "lesson_id": {
+      "$ref": "common.schema.json#/$defs/lesson_id",
+      "description": "The lesson ID."
+    },
+    "date": {
+      "$ref": "common.schema.json#/$defs/date",
+      "description": "The session date."
+    },
+    "kind": {
+      "type": "string",
+      "enum": [
+        "diagnostic",
+        "lesson",
+        "review"
+      ],
+      "description": "The session purpose."
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 2000,
+      "description": "A short title."
+    },
+    "topic_ids": {
+      "type": "array",
+      "items": {
+        "$ref": "common.schema.json#/$defs/topic_id",
+        "description": "A covered topic."
+      },
+      "minItems": 1,
+      "description": "Covered topics.",
+      "uniqueItems": true
+    },
+    "goal": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 2000,
+      "description": "The agreed lesson goal."
+    },
+    "time": {
+      "type": "object",
+      "properties": {
+        "budget_minutes": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 1440,
+          "description": "The session budget."
+        },
+        "actual_minutes": {
+          "anyOf": [
+            {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 1440,
+              "description": "Observed total time."
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "Null if elapsed time was not measured."
+        }
+      },
+      "required": [
+        "budget_minutes",
+        "actual_minutes"
+      ],
+      "additionalProperties": false,
+      "description": "Do not invent elapsed time."
+    },
+    "tasks": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "task_id": {
+            "$ref": "common.schema.json#/$defs/task_id",
+            "description": "A local task ID."
+          },
+          "topic_ids": {
+            "type": "array",
+            "items": {
+              "$ref": "common.schema.json#/$defs/topic_id",
+              "description": "A tested topic."
+            },
+            "minItems": 1,
+            "description": "Task topics.",
+            "uniqueItems": true
+          },
+          "exercise_id": {
+            "anyOf": [
+              {
+                "$ref": "common.schema.json#/$defs/exercise_id",
+                "description": "The larger exercise used."
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Null for a short chat task."
+          },
+          "prompt": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 2000,
+            "description": "The task given."
+          },
+          "completion": {
+            "type": "string",
+            "enum": [
+              "complete",
+              "unfinished"
+            ],
+            "description": "Whether the task was completed."
+          },
+          "resources_used": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "ide",
+                "tests",
+                "documentation",
+                "llm_hints"
+              ],
+              "description": "A resource used."
+            },
+            "minItems": 0,
+            "description": "Resources actually used.",
+            "uniqueItems": true
+          },
+          "execution": {
+            "$ref": "common.schema.json#/$defs/execution",
+            "description": "Execution evidence."
+          }
+        },
+        "required": [
+          "task_id",
+          "topic_ids",
+          "exercise_id",
+          "prompt",
+          "completion",
+          "resources_used",
+          "execution"
+        ],
+        "additionalProperties": false,
+        "description": "One task."
+      },
+      "minItems": 1,
+      "description": "Tasks attempted."
+    },
+    "observations": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "evidence_id": {
+            "$ref": "common.schema.json#/$defs/evidence_id",
+            "description": "A local evidence ID."
+          },
+          "task_id": {
+            "$ref": "common.schema.json#/$defs/task_id",
+            "description": "The task that produced this evidence."
+          },
+          "topic_id": {
+            "$ref": "common.schema.json#/$defs/topic_id",
+            "description": "The observed skill."
+          },
+          "kind": {
+            "type": "string",
+            "enum": [
+              "practice",
+              "independent_attempt",
+              "delayed_check"
+            ],
+            "description": "The attempt purpose."
+          },
+          "observed_result": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 2000,
+            "description": "What the learner actually said or did."
+          },
+          "help_level": {
+            "$ref": "common.schema.json#/$defs/help_level",
+            "description": "The greatest help level used."
+          },
+          "source": {
+            "type": "string",
+            "enum": [
+              "chat_response",
+              "learner_report",
+              "agent_execution"
+            ],
+            "description": "Where this observation came from."
+          },
+          "explained_mechanism": {
+            "type": "boolean",
+            "description": "True only if an explanation was observed."
+          },
+          "solved_new_variant": {
+            "type": "boolean",
+            "description": "True only if a new task variant was solved."
+          },
+          "previous_evidence_ref": {
+            "anyOf": [
+              {
+                "$ref": "common.schema.json#/$defs/evidence_ref",
+                "description": "The earlier independent result."
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Required for a delayed check; otherwise null."
+          }
+        },
+        "required": [
+          "evidence_id",
+          "task_id",
+          "topic_id",
+          "kind",
+          "observed_result",
+          "help_level",
+          "source",
+          "explained_mechanism",
+          "solved_new_variant",
+          "previous_evidence_ref"
+        ],
+        "additionalProperties": false,
+        "description": "One observation.",
+        "allOf": [
+          {
+            "if": {
+              "properties": {
+                "kind": {
+                  "const": "delayed_check"
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "previous_evidence_ref": {
+                  "$ref": "common.schema.json#/$defs/evidence_ref",
+                  "description": "Earlier evidence is required."
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "kind": {
+                  "enum": [
+                    "practice",
+                    "independent_attempt"
+                  ]
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "previous_evidence_ref": {
+                  "type": "null"
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "kind": {
+                  "enum": [
+                    "independent_attempt",
+                    "delayed_check"
+                  ]
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "help_level": {
+                  "const": "none"
+                }
+              }
+            }
+          }
+        ]
+      },
+      "minItems": 0,
+      "description": "Observed evidence."
+    },
+    "assessments": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "topic_id": {
+            "$ref": "common.schema.json#/$defs/topic_id",
+            "description": "The assessed topic."
+          },
+          "status": {
+            "$ref": "common.schema.json#/$defs/status",
+            "description": "The state supported by evidence."
+          },
+          "evidence_ids": {
+            "type": "array",
+            "items": {
+              "$ref": "common.schema.json#/$defs/evidence_id",
+              "description": "Evidence in this lesson."
+            },
+            "minItems": 0,
+            "description": "Evidence for this assessment.",
+            "uniqueItems": true
+          },
+          "assessment": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 2000,
+            "description": "Explain how the evidence supports this state."
+          },
+          "uncertainty": {
+            "anyOf": [
+              {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 2000,
+                "description": "What remains uncertain."
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Null when no specific uncertainty was identified."
+          }
+        },
+        "required": [
+          "topic_id",
+          "status",
+          "evidence_ids",
+          "assessment",
+          "uncertainty"
+        ],
+        "additionalProperties": false,
+        "description": "One tutor assessment."
+      },
+      "minItems": 0,
+      "description": "Keep assessments separate from observations."
+    },
+    "errors": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "task_id": {
+            "$ref": "common.schema.json#/$defs/task_id",
+            "description": "The task with this error."
+          },
+          "description": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 2000,
+            "description": "The observed error."
+          },
+          "correction": {
+            "anyOf": [
+              {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 2000,
+                "description": "The correction made or explained."
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Null when unresolved."
+          }
+        },
+        "required": [
+          "task_id",
+          "description",
+          "correction"
+        ],
+        "additionalProperties": false,
+        "description": "One observed error."
+      },
+      "minItems": 0,
+      "description": "Observed errors."
+    },
+    "unfinished_tasks": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "task_id": {
+            "$ref": "common.schema.json#/$defs/task_id",
+            "description": "The unfinished task."
+          },
+          "next_action": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 2000,
+            "description": "The next action."
+          }
+        },
+        "required": [
+          "task_id",
+          "next_action"
+        ],
+        "additionalProperties": false,
+        "description": "One task to resume."
+      },
+      "minItems": 0,
+      "description": "List every unfinished task."
+    },
+    "sources": {
+      "type": "array",
+      "items": {
+        "$ref": "common.schema.json#/$defs/source",
+        "description": "A source used in this lesson."
+      },
+      "minItems": 0,
+      "description": "Technical sources."
+    },
+    "next_step": {
+      "type": "object",
+      "properties": {
+        "topic_ids": {
+          "type": "array",
+          "items": {
+            "$ref": "common.schema.json#/$defs/topic_id",
+            "description": "A proposed next topic."
+          },
+          "minItems": 0,
+          "description": "Next topic proposals.",
+          "uniqueItems": true
+        },
+        "reason": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 2000,
+          "description": "Why this next step is proposed."
+        }
+      },
+      "required": [
+        "topic_ids",
+        "reason"
+      ],
+      "additionalProperties": false,
+      "description": "A proposal, not approval of the next topic."
+    },
+    "approval": {
+      "$ref": "common.schema.json#/$defs/approval",
+      "description": "Approval for the final lesson and related state."
+    }
+  },
+  "required": [
+    "schema_version",
+    "record_type",
+    "record_kind",
+    "lesson_id",
+    "date",
+    "kind",
+    "title",
+    "topic_ids",
+    "goal",
+    "time",
+    "tasks",
+    "observations",
+    "assessments",
+    "errors",
+    "unfinished_tasks",
+    "sources",
+    "next_step",
+    "approval"
+  ],
+  "additionalProperties": false,
+  "description": "One approved lesson. Examples stay outside learner state."
+}

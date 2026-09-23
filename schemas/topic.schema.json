@@ -1,0 +1,130 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/kamil-kazmierczak/java-learning/schemas/topic.schema.json",
+  "title": "topic",
+  "type": "object",
+  "properties": {
+    "schema_version": {
+      "const": "1.0.0",
+      "description": "The format version. A change needs a migration plan."
+    },
+    "record_type": {
+      "const": "topic",
+      "description": "The record type. The path selects the schema."
+    },
+    "record_kind": {
+      "type": "string",
+      "enum": [
+        "example",
+        "live"
+      ],
+      "description": "Examples are fictional. Only live records can store learner state."
+    },
+    "topic_id": {
+      "$ref": "common.schema.json#/$defs/topic_id",
+      "description": "The topic ID."
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 2000,
+      "description": "The topic title."
+    },
+    "status": {
+      "$ref": "common.schema.json#/$defs/status",
+      "description": "The current progress state."
+    },
+    "selection": {
+      "type": "string",
+      "enum": [
+        "proposed",
+        "accepted",
+        "deferred"
+      ],
+      "description": "The learner topic choice."
+    },
+    "updated_from_lesson_id": {
+      "anyOf": [
+        {
+          "$ref": "common.schema.json#/$defs/lesson_id",
+          "description": "The last assessment lesson."
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "description": "Null before the first assessment."
+    },
+    "evidence_refs": {
+      "type": "array",
+      "items": {
+        "$ref": "common.schema.json#/$defs/evidence_ref",
+        "description": "Evidence for the current state."
+      },
+      "minItems": 0,
+      "description": "Evidence from saved lessons.",
+      "uniqueItems": true
+    },
+    "gaps": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 2000,
+        "description": "One observed gap."
+      },
+      "minItems": 0,
+      "description": "Do not invent gaps."
+    },
+    "review": {
+      "type": "object",
+      "properties": {
+        "last_review_lesson_id": {
+          "anyOf": [
+            {
+              "$ref": "common.schema.json#/$defs/lesson_id",
+              "description": "The last review lesson."
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "Null before a review."
+        },
+        "next_due_on": {
+          "anyOf": [
+            {
+              "$ref": "common.schema.json#/$defs/date",
+              "description": "The next proposed review date."
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "description": "Null when no date is set."
+        }
+      },
+      "required": [
+        "last_review_lesson_id",
+        "next_due_on"
+      ],
+      "additionalProperties": false,
+      "description": "Review state."
+    }
+  },
+  "required": [
+    "schema_version",
+    "record_type",
+    "record_kind",
+    "topic_id",
+    "title",
+    "status",
+    "selection",
+    "updated_from_lesson_id",
+    "evidence_refs",
+    "gaps",
+    "review"
+  ],
+  "additionalProperties": false,
+  "description": "Current state of one skill."
+}

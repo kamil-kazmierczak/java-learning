@@ -1,0 +1,182 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/kamil-kazmierczak/java-learning/schemas/current-state.schema.json",
+  "title": "current state",
+  "type": "object",
+  "properties": {
+    "schema_version": {
+      "const": "1.0.0",
+      "description": "The format version. A change needs a migration plan."
+    },
+    "record_type": {
+      "const": "current-state",
+      "description": "The record type. The path selects the schema."
+    },
+    "record_kind": {
+      "type": "string",
+      "enum": [
+        "example",
+        "live"
+      ],
+      "description": "Examples are fictional. Only live records can store learner state."
+    },
+    "last_lesson_id": {
+      "anyOf": [
+        {
+          "$ref": "common.schema.json#/$defs/lesson_id",
+          "description": "The last approved lesson."
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "description": "Null before the first saved lesson."
+    },
+    "current_topic_id": {
+      "anyOf": [
+        {
+          "$ref": "common.schema.json#/$defs/topic_id",
+          "description": "The current topic."
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "description": "Null when no topic is selected."
+    },
+    "resume_note": {
+      "anyOf": [
+        {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 2000,
+          "description": "The exact place to resume."
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "description": "Null when no unfinished context exists."
+    },
+    "pending_tasks": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "lesson_id": {
+            "$ref": "common.schema.json#/$defs/lesson_id",
+            "description": "The lesson with this task."
+          },
+          "task_id": {
+            "$ref": "common.schema.json#/$defs/task_id",
+            "description": "The unfinished task."
+          },
+          "next_action": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 2000,
+            "description": "The next action."
+          }
+        },
+        "required": [
+          "lesson_id",
+          "task_id",
+          "next_action"
+        ],
+        "additionalProperties": false,
+        "description": "One unfinished task."
+      },
+      "minItems": 0,
+      "description": "Tasks to resume."
+    },
+    "proposed_topics": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "topic_id": {
+            "$ref": "common.schema.json#/$defs/topic_id",
+            "description": "The proposed topic."
+          },
+          "reason": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 2000,
+            "description": "Why this topic is proposed."
+          }
+        },
+        "required": [
+          "topic_id",
+          "reason"
+        ],
+        "additionalProperties": false,
+        "description": "One proposal."
+      },
+      "minItems": 0,
+      "description": "Ask for approval at the next session."
+    },
+    "review_queue": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "topic_id": {
+            "$ref": "common.schema.json#/$defs/topic_id",
+            "description": "The topic to review."
+          },
+          "due_on": {
+            "anyOf": [
+              {
+                "$ref": "common.schema.json#/$defs/date",
+                "description": "The proposed review date."
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Null when no date is set."
+          },
+          "reason": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 2000,
+            "description": "Why a review is needed."
+          },
+          "evidence_refs": {
+            "type": "array",
+            "items": {
+              "$ref": "common.schema.json#/$defs/evidence_ref",
+              "description": "Evidence for this review."
+            },
+            "minItems": 0,
+            "description": "Relevant evidence.",
+            "uniqueItems": true
+          }
+        },
+        "required": [
+          "topic_id",
+          "due_on",
+          "reason",
+          "evidence_refs"
+        ],
+        "additionalProperties": false,
+        "description": "One review."
+      },
+      "minItems": 0,
+      "description": "Reviews remain inside lesson time."
+    }
+  },
+  "required": [
+    "schema_version",
+    "record_type",
+    "record_kind",
+    "last_lesson_id",
+    "current_topic_id",
+    "resume_note",
+    "pending_tasks",
+    "proposed_topics",
+    "review_queue"
+  ],
+  "additionalProperties": false,
+  "description": "Small current state. Detailed evidence stays in lesson files."
+}

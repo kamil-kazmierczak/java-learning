@@ -1,0 +1,164 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/kamil-kazmierczak/java-learning/schemas/teaching.schema.json",
+  "title": "teaching",
+  "type": "object",
+  "properties": {
+    "schema_version": {
+      "const": "1.0.0",
+      "description": "The format version. A change needs a migration plan."
+    },
+    "record_type": {
+      "const": "teaching",
+      "description": "The record type. The path selects the schema."
+    },
+    "record_kind": {
+      "type": "string",
+      "enum": [
+        "example",
+        "live"
+      ],
+      "description": "Examples are fictional. Only live records can store learner state."
+    },
+    "assessment_mode": {
+      "const": "mixed",
+      "description": "Use an initial overview and assessment before each topic."
+    },
+    "topic_selection": {
+      "const": "learner_approval",
+      "description": "Propose a topic and obtain approval."
+    },
+    "hint_order": {
+      "type": "array",
+      "prefixItems": [
+        {
+          "const": "guiding_question"
+        },
+        {
+          "const": "specific_hint"
+        },
+        {
+          "const": "partial_example"
+        },
+        {
+          "const": "full_explanation"
+        }
+      ],
+      "items": false,
+      "minItems": 4,
+      "description": "Use this order unless the learner requests an explanation."
+    },
+    "explanation_on_request": {
+      "const": true,
+      "description": "Allow an earlier explanation when requested."
+    },
+    "new_task_after_explanation": {
+      "const": true,
+      "description": "Use a new task after a full explanation."
+    },
+    "independent_tasks": {
+      "type": "object",
+      "properties": {
+        "allowed_resources": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "ide",
+              "tests",
+              "documentation"
+            ],
+            "description": "An allowed resource."
+          },
+          "minItems": 0,
+          "description": "Resources for independent tasks.",
+          "uniqueItems": true
+        },
+        "llm_hints": {
+          "const": false,
+          "description": "Do not give hints during independent tasks."
+        }
+      },
+      "required": [
+        "allowed_resources",
+        "llm_hints"
+      ],
+      "additionalProperties": false,
+      "description": "Independent assessment."
+    },
+    "session_rules": {
+      "type": "object",
+      "properties": {
+        "flexible_time_allocation": {
+          "const": true,
+          "description": "Adjust task duration."
+        },
+        "closure_command": {
+          "const": "kończymy",
+          "description": "This command stops new instruction and starts closure."
+        },
+        "carry_unfinished_work": {
+          "const": true,
+          "description": "An unfinished task can continue in another session."
+        }
+      },
+      "required": [
+        "flexible_time_allocation",
+        "closure_command",
+        "carry_unfinished_work"
+      ],
+      "additionalProperties": false,
+      "description": "Session rules."
+    },
+    "source_rules": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 2000,
+        "description": "One rule for source use."
+      },
+      "minItems": 1,
+      "description": "Rules for technical facts."
+    },
+    "evidence_rules": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 2000,
+        "description": "One rule for evidence."
+      },
+      "minItems": 1,
+      "description": "Rules for progress records."
+    },
+    "approval_rules": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 2000,
+        "description": "One rule for approval."
+      },
+      "minItems": 1,
+      "description": "Rules for review and saving."
+    }
+  },
+  "required": [
+    "schema_version",
+    "record_type",
+    "record_kind",
+    "assessment_mode",
+    "topic_selection",
+    "hint_order",
+    "explanation_on_request",
+    "new_task_after_explanation",
+    "independent_tasks",
+    "session_rules",
+    "source_rules",
+    "evidence_rules",
+    "approval_rules"
+  ],
+  "additionalProperties": false,
+  "description": "Tutor rules."
+}

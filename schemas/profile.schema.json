@@ -1,0 +1,153 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/kamil-kazmierczak/java-learning/schemas/profile.schema.json",
+  "title": "profile",
+  "type": "object",
+  "properties": {
+    "schema_version": {
+      "const": "1.0.0",
+      "description": "The format version. A change needs a migration plan."
+    },
+    "record_type": {
+      "const": "profile",
+      "description": "The record type. The path selects the schema."
+    },
+    "record_kind": {
+      "type": "string",
+      "enum": [
+        "example",
+        "live"
+      ],
+      "description": "Examples are fictional. Only live records can store learner state."
+    },
+    "experience": {
+      "type": "object",
+      "properties": {
+        "years": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 100,
+          "description": "Years of commercial experience."
+        },
+        "role": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 2000,
+          "description": "The learner role."
+        },
+        "context": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 2000,
+          "description": "The work context."
+        }
+      },
+      "required": [
+        "years",
+        "role",
+        "context"
+      ],
+      "additionalProperties": false,
+      "description": "Confirmed experience."
+    },
+    "goals": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 2000,
+        "description": "One agreed learning goal."
+      },
+      "minItems": 1,
+      "description": "Learner goals.",
+      "uniqueItems": true
+    },
+    "environment": {
+      "type": "object",
+      "properties": {
+        "ide": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 2000,
+          "description": "The IDE name."
+        },
+        "jdk_distribution": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 2000,
+          "description": "The JDK distribution."
+        },
+        "jdk_version": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 999,
+          "description": "The JDK version."
+        }
+      },
+      "required": [
+        "ide",
+        "jdk_distribution",
+        "jdk_version"
+      ],
+      "additionalProperties": false,
+      "description": "Learner tools."
+    },
+    "session": {
+      "type": "object",
+      "properties": {
+        "daily_minutes": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 1440,
+          "description": "Daily time including practice and closure."
+        },
+        "practice_within_session": {
+          "const": true,
+          "description": "Practice is part of the session."
+        }
+      },
+      "required": [
+        "daily_minutes",
+        "practice_within_session"
+      ],
+      "additionalProperties": false,
+      "description": "Time preferences."
+    },
+    "language": {
+      "type": "object",
+      "properties": {
+        "chat": {
+          "const": "pl",
+          "description": "Use Polish in lessons."
+        },
+        "review": {
+          "const": "pl",
+          "description": "Use Polish for review."
+        },
+        "repository": {
+          "const": "en",
+          "description": "Use English in repository prose."
+        }
+      },
+      "required": [
+        "chat",
+        "review",
+        "repository"
+      ],
+      "additionalProperties": false,
+      "description": "Language choices."
+    }
+  },
+  "required": [
+    "schema_version",
+    "record_type",
+    "record_kind",
+    "experience",
+    "goals",
+    "environment",
+    "session",
+    "language"
+  ],
+  "additionalProperties": false,
+  "description": "Do not infer skill from years of experience."
+}

@@ -1,0 +1,20 @@
+{
+  "schema_version": "1.0.0",
+  "record_type": "exercise",
+  "record_kind": "example",
+  "exercise_id": "exercise-counter",
+  "topic_ids": [
+    "counter-state"
+  ],
+  "title": "Read a counter",
+  "task": "Describe the state before and after an increment.",
+  "constraints": [
+    "Use a new example after a full explanation."
+  ],
+  "success_criteria": [
+    "Explain the state change without a hint."
+  ],
+  "jdk_version": 25,
+  "code_paths": [],
+  "sources": []
+}

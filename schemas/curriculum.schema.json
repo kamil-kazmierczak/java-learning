@@ -1,0 +1,119 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/kamil-kazmierczak/java-learning/schemas/curriculum.schema.json",
+  "title": "curriculum",
+  "type": "object",
+  "properties": {
+    "schema_version": {
+      "const": "1.0.0",
+      "description": "The format version. A change needs a migration plan."
+    },
+    "record_type": {
+      "const": "curriculum",
+      "description": "The record type. The path selects the schema."
+    },
+    "record_kind": {
+      "type": "string",
+      "enum": [
+        "example",
+        "live"
+      ],
+      "description": "Examples are fictional. Only live records can store learner state."
+    },
+    "scope": {
+      "type": "object",
+      "properties": {
+        "primary": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 2000,
+            "description": "One primary area."
+          },
+          "minItems": 1,
+          "description": "Primary scope.",
+          "uniqueItems": true
+        },
+        "framework_use": {
+          "const": "context_only",
+          "description": "Use frameworks to explain the primary scope."
+        },
+        "version_policy": {
+          "const": "shared_mechanisms_with_differences",
+          "description": "Teach shared mechanisms and relevant version differences."
+        }
+      },
+      "required": [
+        "primary",
+        "framework_use",
+        "version_policy"
+      ],
+      "additionalProperties": false,
+      "description": "Learning scope."
+    },
+    "topics": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "topic_id": {
+            "$ref": "common.schema.json#/$defs/topic_id",
+            "description": "The topic ID."
+          },
+          "title": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 2000,
+            "description": "A short title."
+          },
+          "prerequisite_ids": {
+            "type": "array",
+            "items": {
+              "$ref": "common.schema.json#/$defs/topic_id",
+              "description": "A prerequisite."
+            },
+            "minItems": 0,
+            "description": "Prerequisites in this map.",
+            "uniqueItems": true
+          },
+          "selection": {
+            "type": "string",
+            "enum": [
+              "proposed",
+              "accepted",
+              "deferred"
+            ],
+            "description": "The learner topic choice."
+          },
+          "reason": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 2000,
+            "description": "Why this topic was proposed or deferred."
+          }
+        },
+        "required": [
+          "topic_id",
+          "title",
+          "prerequisite_ids",
+          "selection",
+          "reason"
+        ],
+        "additionalProperties": false,
+        "description": "One topic."
+      },
+      "minItems": 0,
+      "description": "The topic map. Empty before topics are proposed."
+    }
+  },
+  "required": [
+    "schema_version",
+    "record_type",
+    "record_kind",
+    "scope",
+    "topics"
+  ],
+  "additionalProperties": false,
+  "description": "Topic choice is not evidence of skill."
+}
